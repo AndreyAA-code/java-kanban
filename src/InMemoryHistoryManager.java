@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private Integer maxHistoryNumberlist = 10;
-    private Integer historyNumberlist = 0;
+   // private Integer maxHistoryNumberlist = 10; //не нужно в спринте 6
+   // private Integer historyNumberlist = 0; //не нужно в спринте 6
     private List<Task> historyList = new ArrayList<>();
 
     @Override
@@ -17,10 +17,15 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
-        if (historyList.size() >= maxHistoryNumberlist) {
-            historyList.remove(0);
-        }
+       // if (historyList.size() >= maxHistoryNumberlist) { //не нужно в спринте 6
+         //   historyList.remove(0); //не нужно в спринте 6
+       // }
         historyList.add(task);
-        historyNumberlist++;
+       // historyNumberlist++; //не нужно в спринте 6
+    }
+
+    @Override
+    public void remove (int id) {
+
     }
 }

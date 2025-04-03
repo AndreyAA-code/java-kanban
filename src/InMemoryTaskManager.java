@@ -117,6 +117,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteTaskById(Integer taskId) {//удаление задачи по идентификатору
         if (tasks.get(taskId) != null) {
             tasks.remove(taskId);
+            historyManager.remove(taskId);
         } else {
             System.out.println("Такой задачи нет");
         }
@@ -128,8 +129,10 @@ public class InMemoryTaskManager implements TaskManager {
             Epic epic = epics.get(taskId);
             for (Integer subtask : epic.getEpicSubtasks()) {
                 subtasks.remove(subtask);
+                historyManager.remove(subtask);
             }
             epics.remove(taskId);
+            historyManager.remove(taskId);
         } else {
             System.out.println("Такой задачи нет");
         }
@@ -143,6 +146,7 @@ public class InMemoryTaskManager implements TaskManager {
             List<Integer> epicSubtasks = epic.getEpicSubtasks();
             epicSubtasks.remove(taskId);
             subtasks.remove(taskId);
+            historyManager.remove(taskId);
             updateEpicStatus(subtask.getEpicId());
         } else {
             System.out.println("Такой задачи нет");
