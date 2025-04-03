@@ -25,10 +25,12 @@ public static void main(String[] args) {
     //Subtask subtask3 = new Subtask("subtaskname3", "subtaskdescr3", 5, TaskStatus.NEW);
     //manager.addSubtask(subtask3);
     // проверка правильности работы кода
-     manager.printAllTasks(); // напечатать все задачи
+    // manager.printAllTasks(); // напечатать все задачи
     //manager.deleteAllTasks(); //удалить все задачи
-    System.out.println(manager.getTaskById(2)); // получить данные по задаче по номеру ID
-   // manager.getHistory();
+    System.out.println(manager.getTaskById(1)); // получить данные по задаче по номеру ID
+
+    System.out.println(manager.getTaskById(2));
+    System.out.println(manager.getTaskById(3));// manager.getHistory();
    //  System.out.println(manager.getSubtaskByID(5)); // получить данные по подзадаче по номеру ID
     // System.out.println(manager.getEpicById(3)); // получить данные по эпику по номеру ID
     //manager.deleteTaskById(2); //удалить задачу (передаем ID)

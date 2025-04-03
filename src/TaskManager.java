@@ -39,6 +39,6 @@ public interface TaskManager {
 
     void updateEpicStatus(Integer epicID); //метод update статуса Эпика
 
-    List <Task> getHistory();
+    List <Task> getHistory();// получение истории просмотра объектов
 
 }

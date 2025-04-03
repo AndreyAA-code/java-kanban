@@ -97,19 +97,19 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskById(Integer taskId) { //получение задачи по идентификатору
-        historyManager.addHistoryTaskToList(tasks.get(taskId));
+        historyManager.add(tasks.get(taskId));
         return tasks.get(taskId);
     }
 
     @Override
     public Subtask getSubtaskByID(Integer taskId) { //получение подзадачи по идентификатору
-        historyManager.addHistoryTaskToList(subtasks.get(taskId));
+        historyManager.add(subtasks.get(taskId));
         return subtasks.get(taskId);
     }
 
     @Override
     public Epic getEpicById(Integer taskId) {//получение эпика по идентификатору
-        historyManager.addHistoryTaskToList(epics.get(taskId));
+        historyManager.add(epics.get(taskId));
         return epics.get(taskId);
     }
 
@@ -152,7 +152,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) { //метод update задачи
         tasks.put(task.getTaskId(), task);
-    }
+    } //метод update задачи
 
     @Override
     public void updateSubtask(Subtask subtask) {//метод update подзадачи
