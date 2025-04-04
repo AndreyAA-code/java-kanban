@@ -1,14 +1,22 @@
-public class Node <T> {
+public class Node<Task> {
 
-        public T data;
-        public Node<T> next;
-        public Node<T> prev;
+        public Task data;
+        public Node<Task> next;
+        public Node<Task> prev;
 
-        public Node (T data, Node<T> prev, Node<T> next) {
+        public Node (Node<Task> prev, Task data, Node<Task> next) {
             this.data = data;
             this.next = next;
             this.prev= prev;
         }
 
 
+   /* @Override
+    public String toString() {
+        return "Node{" +
+                "prev=" + prev +
+                ", data=" + data +
+                ", next=" + next +
+                '}';
+    } */
 }
