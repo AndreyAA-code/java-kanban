@@ -9,5 +9,7 @@ public interface HistoryManager {
 
     void remove (int id); //удаление задачи из просмотра при удалении задачи
 
+    void removeAll(); //удаление всех задач
+
 }
 

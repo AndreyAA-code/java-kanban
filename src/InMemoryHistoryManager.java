@@ -29,35 +29,25 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-
-
+        removeNode(historyNodesListLink.get(id));
     }
 
     public void linkLast(Task task) {
-        if (historyNodesListLink.containsKey(task.taskId)){
+        if (historyNodesListLink.containsKey(task.taskId)) {
             removeNode(historyNodesListLink.get(task.taskId));
         }
-
         final Node<Task> oldTail = tail;
-        //   System.out.println("oldTail: " + oldTail);
         final Node<Task> newNode = new Node<Task>(oldTail, task, null);
-        //    System.out.println("newNode: " + newNode);
         tail = newNode;
-        //   System.out.println("tail: " + newNode);
         if (oldTail == null) {
             head = newNode;
-            //        System.out.println("head: " + head);
         } else {
             oldTail.next = newNode;
-            //     System.out.println("oldTail.next: " + oldTail.next);
         }
         historyNodesListLink.put(task.taskId, newNode);
-        System.out.println("task.taskId: " + task.taskId + "  node.prev: " + newNode.prev + "  node.data: "
-                + newNode.data + "  node.next: " + newNode.next);
-        System.out.println("nodesListLink: " + historyNodesListLink);
-
     }
-public List<Task> getTasks(){
+
+    public List<Task> getTasks() {
         historyListForPrint = new LinkedList<>();
         Node<Task> node = head;
         while (node != null) {
@@ -70,10 +60,31 @@ public List<Task> getTasks(){
         return historyListForPrint;
     }
 
-    public void removeNode (Node<Task> node) {
-
+    public void removeNode(Node<Task> node) {
+        Node<Task> nodePrev = node.prev;
+        Node<Task> nodeNext = node.next;
+        if (node == head && node == tail) {
+            head = null;
+            tail = null;
+        } else if (node == head) {
+            head = nodeNext;
+            nodeNext.prev = null;
+        } else if (node == tail) {
+            tail = nodePrev;
+            nodePrev.next = null;
+        } else {
+            nodePrev.next = nodeNext;
+            nodeNext.prev = nodePrev;
+        }
     }
 
-
+    @Override
+    public void removeAll() {
+        historyListForPrint.clear();
+        head = null;
+        tail = null;
+        historyNodesListLink.clear();
+    }
 
 }
+

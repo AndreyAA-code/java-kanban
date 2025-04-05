@@ -10,13 +10,4 @@ public class Node<Task> {
             this.prev= prev;
         }
 
-
-   /* @Override
-    public String toString() {
-        return "Node{" +
-                "prev=" + prev +
-                ", data=" + data +
-                ", next=" + next +
-                '}';
-    } */
 }

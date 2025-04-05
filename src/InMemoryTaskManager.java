@@ -92,6 +92,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks.clear();
         subtasks.clear();
         epics.clear();
+        historyManager.removeAll();
         taskId = 1; //сброс счетчика идентификатора
     }
 
