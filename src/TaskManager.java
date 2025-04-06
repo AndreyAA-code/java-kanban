@@ -1,11 +1,10 @@
-import java.util.HashMap;
 import java.util.List;
 
 public interface TaskManager {
 
     Integer addTask(Task task);//метод добавления задачи
 
-    List <Task> getTasks(); //getter для hash map tasks
+    List<Task> getTasks(); //getter для hash map tasks
 
     List<Epic> getEpics(); //getter для hash map epics
 
@@ -39,6 +38,6 @@ public interface TaskManager {
 
     void updateEpicStatus(Integer epicID); //метод update статуса Эпика
 
-    List <Task> getHistory();// получение истории просмотра объектов
+    List<Task> getHistory();// получение истории просмотра объектов
 
 }
