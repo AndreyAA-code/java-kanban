@@ -18,12 +18,12 @@ public class InMemoryTaskManager implements TaskManager {
         epics = new HashMap<>();
     }
 
-    public void taskIdCount() {//метод - счетчик идентификатора
+    public void taskIdCount() { //метод - счетчик идентификатора
         taskId++;
     }
 
     @Override
-    public Integer addTask (Task task) {  //метод добавления задачи
+    public Integer addTask(Task task) {  //метод добавления задачи
         taskIdCount();
         task.setTaskId(taskId);
         tasks.put(taskId, task);
@@ -36,7 +36,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addSubtask (Subtask subtask) {//метод добавления подзадачи
+    public void addSubtask(Subtask subtask) {//метод добавления подзадачи
         taskIdCount();
         subtask.setTaskId(taskId);
         subtasks.put(taskId, subtask);
