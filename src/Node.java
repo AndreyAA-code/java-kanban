@@ -1,4 +1,4 @@
-public class Node<Task> {
+public class Node <Task> {
 
     public Task data;
     public Node<Task> next;
