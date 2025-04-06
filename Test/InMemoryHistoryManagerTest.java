@@ -53,4 +53,5 @@ class InMemoryHistoryManagerTest {
         System.out.println(history);
         assertEquals(0, history.size(), "List не пустой");
     }
+
 }
