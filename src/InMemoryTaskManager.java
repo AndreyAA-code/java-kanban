@@ -18,7 +18,7 @@ public class InMemoryTaskManager implements TaskManager {
         epics = new HashMap<>();
     }
 
-    public void taskIdCount () {//метод - счетчик идентификатора
+    public void taskIdCount() {//метод - счетчик идентификатора
         taskId++;
     }
 
