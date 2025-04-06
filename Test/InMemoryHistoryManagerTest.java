@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 class InMemoryHistoryManagerTest {
@@ -22,10 +21,9 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void ifSameIdTaskremovedFromListWhileAdd () {
+    void ifSameIdTaskremovedFromListWhileAdd() {
 
         TaskManager manager = Managers.getDefault();
-        HistoryManager historyManager = Managers.getDefaultHistory();
         Task task1 = new Task("taskname1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
         manager.getTaskById(1); // получить данные по задаче по номеру ID
@@ -37,10 +35,9 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void ifHistoryNullwhileDeleteAllTasks () {
+    void ifHistoryNullwhileDeleteAllTasks() {
 
         TaskManager manager = Managers.getDefault();
-        HistoryManager historyManager = Managers.getDefaultHistory();
         Task task1 = new Task("taskname1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
         Task task2 = new Task("taskname2", "taskdescr2", TaskStatus.NEW);
@@ -53,5 +50,4 @@ class InMemoryHistoryManagerTest {
         System.out.println(history);
         assertEquals(0, history.size(), "List не пустой");
     }
-
 }
