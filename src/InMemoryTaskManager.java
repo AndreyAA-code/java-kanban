@@ -160,7 +160,7 @@ public class InMemoryTaskManager implements TaskManager {
     }  //метод update задачи
 
     @Override
-    public void updateSubtask (Subtask subtask) { //метод update подзадачи
+    public void updateSubtask(Subtask subtask) { //метод update подзадачи
         subtasks.put(subtask.getTaskId(), subtask);
         updateEpicStatus(subtask.getEpicId());
     }
