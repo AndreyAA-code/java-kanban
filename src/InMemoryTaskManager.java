@@ -13,6 +13,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     public InMemoryTaskManager() {
         historyManager = Managers.getDefaultHistory();
+
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
         epics = new HashMap<>();
