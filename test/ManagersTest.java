@@ -9,13 +9,16 @@ class ManagersTest {
 
     @Test
     void getDefaultManager() {
-        TaskManager manager = Managers.getDefault();
-        assertEquals(manager, new InMemoryTaskManager(), "Не равно");
+        TaskManager manager =  Managers.getDefault();
+        System.out.println(manager);
+        manager.getClass();
+        assertEquals(manager.getClass(), InMemoryTaskManager.class, "Не равно");
     }
+
 
     @Test
     void getDefaultHistory() {
         HistoryManager historyManager = Managers.getDefaultHistory();
-        assertEquals(historyManager, new ArrayList<Task>(), "Не равно");
+        assertEquals(historyManager.getClass(), InMemoryHistoryManager.class, "Не равно");
     }
 }
