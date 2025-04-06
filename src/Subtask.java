@@ -12,6 +12,7 @@ public class Subtask extends Task {
         this.epicId = epicId;
         this.taskId = taskId;
     }
+
     public Integer getEpicId() {
         return epicId;
     }
