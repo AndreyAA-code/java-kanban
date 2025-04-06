@@ -80,7 +80,7 @@ class InMemoryTaskManagerTest {
         manager.updateSubtask(new Subtask("subtaskname1new", "subtaskdescr1new",2, 1, TaskStatus.DONE));
 
         List<Epic> testEpic = manager.getEpics();
-        Epic testEpic1 = testEpic.get(1);
+        Epic testEpic1 = testEpic.get(0);
 
         assertEquals(TaskStatus.DONE, testEpic1.taskStatus, "Статус не совпадает.");
     }
