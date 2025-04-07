@@ -52,7 +52,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
 
     public List<Task> getTasks() {
-        List<Task> historyListForPrint= new LinkedList<>(); // для отдачи истории просмотров
+        List<Task> historyListForPrint = new LinkedList<>(); // для отдачи истории просмотров
         Node<Task> node = head;
         while (node != null) {
             historyListForPrint.add(node.getData());
