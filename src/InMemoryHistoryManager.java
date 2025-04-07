@@ -2,19 +2,17 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
+    private Node head = null;
+    private Node tail;
 
-    public Node head;
-    public Node tail;
-    public List<Task> historyListForPrint; // для отдачи истории просмотров
-
-    public static Map<Integer, Node<Task>> getNodesListLink() {
-        return historyNodesListLink;
-    }
-
-    public static Map<Integer, Node<Task>> historyNodesListLink; //для быстрого поиска нода для удаления
+    private static Map<Integer, Node<Task>> historyNodesListLink; //для быстрого поиска нода для удаления
 
     public InMemoryHistoryManager() {
         historyNodesListLink = new HashMap<>();
+    }
+
+    public static Map<Integer, Node<Task>> getNodesListLink() {
+        return historyNodesListLink;
     }
 
     @Override
@@ -42,17 +40,23 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (oldTail == null) {
             head = newNode;
         } else {
-            oldTail.next = newNode;
+            oldTail.setNext(newNode);
         }
         historyNodesListLink.put(task.taskId, newNode);
     }
 
+    public static void setHistoryNodesListLink(Map<Integer, Node<Task>> historyNodesListLink) {
+        InMemoryHistoryManager.historyNodesListLink = historyNodesListLink;
+    }
+
+
+
     public List<Task> getTasks() {
-        historyListForPrint = new LinkedList<>();
+        List<Task> historyListForPrint= new LinkedList<>(); // для отдачи истории просмотров
         Node<Task> node = head;
         while (node != null) {
-            historyListForPrint.add(node.data);
-            node = node.next;
+            historyListForPrint.add(node.getData());
+            node = node.getNext();
         }
         for (int i = historyListForPrint.size() - 1; i >= 0; i--) {
             System.out.println("запрос " + (i + 1) + ": " + historyListForPrint.get(i));
@@ -61,26 +65,25 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     public void removeNode(Node<Task> node) {
-        Node<Task> nodePrev = node.prev;
-        Node<Task> nodeNext = node.next;
+        Node<Task> nodePrev = node.getPrev();
+        var nodeNext = node.getNext();
         if (node == head && node == tail) {
             head = null;
             tail = null;
         } else if (node == head) {
             head = nodeNext;
-            nodeNext.prev = null;
+            nodeNext.setPrev(null);
         } else if (node == tail) {
             tail = nodePrev;
-            nodePrev.next = null;
+            nodePrev.setNext(null);
         } else {
-            nodePrev.next = nodeNext;
-            nodeNext.prev = nodePrev;
+            nodePrev.setNext(nodeNext);
+            nodeNext.setPrev(nodePrev);
         }
     }
 
     @Override
     public void removeAll() {
-        historyListForPrint.clear();
         head = null;
         tail = null;
         historyNodesListLink.clear();

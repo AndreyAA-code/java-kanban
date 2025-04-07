@@ -67,7 +67,6 @@ public class Main {
 
         //удаление subtask
         System.out.println("\n просмотр истории + списка подзадач эпика при удалении подзадачи");
-        System.out.println("\n просмотр истории + списка подзадач эпика при удалении подзадачи");
         manager.deleteSubtaskById(5); //удалить задачу (передаем ID)
         manager.getHistory(); //список истории просмотра
 
