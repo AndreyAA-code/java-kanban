@@ -7,7 +7,7 @@ import java.util.List;
 public class InMemoryTaskManager implements TaskManager {
 
     private Integer taskId = 0;//счетчик идентификатор сквозной для всех типов задач
-    private final HashMap<Integer, Task> tasks;
+    protected final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Subtask> subtasks;
     private final HashMap<Integer, Epic> epics;
     private HistoryManager historyManager;
