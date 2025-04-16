@@ -36,6 +36,23 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+    @Override
+    public void updateTask(Task task) throws IOException { //метод update задачи
+        super.updateTask(task);
+        save();
+    }  //метод update задачи
+
+    @Override
+    public void updateSubtask(Subtask subtask) throws IOException { //метод update подзадачи
+        super.updateSubtask(subtask);
+        save();
+    }
+
+    @Override
+    public void updateEpic(Epic epic) throws IOException {  //метод update эпика
+        super.updateEpic(epic);
+        save();
+    }
 
     public void save() throws IOException {
 

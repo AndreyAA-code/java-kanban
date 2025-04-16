@@ -1,8 +1,8 @@
 id,type,name,status,description,epic
-1,TASK,taskname 1,NEW,taskdescr1
+1,TASK,taskname1,IN_PROGRESS,taskdescr1
 2,TASK,taskname 2,NEW,taskdescr2
-3,EPIC,epicname1,NEW,epicdescr1
+3,EPIC,epicname1,IN_PROGRESS,epicdescr1
 4,EPIC,epicname2,NEW,epicdescr2
-5,SUBTASK,subtaskname1,NEW,subtaskdescr1,3
-6,SUBTASK,subtaskname2,NEW,subtaskdescr2,3
+5,SUBTASK,subtaskname1,DONE,subtaskdescr1,3
+6,SUBTASK,subtaskname2,DONE,subtaskdescr2,3
 7,SUBTASK,subtaskname3,NEW,subtaskdescr3,3

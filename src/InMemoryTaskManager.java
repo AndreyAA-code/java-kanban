@@ -10,7 +10,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected final HashMap<Integer, Task> tasks;
     protected final HashMap<Integer, Subtask> subtasks;
     protected final HashMap<Integer, Epic> epics;
-    private HistoryManager historyManager;
+    protected HistoryManager historyManager;
 
     public InMemoryTaskManager() {
         historyManager = Managers.getDefaultHistory();
@@ -157,18 +157,18 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updateTask(Task task) { //метод update задачи
+    public void updateTask(Task task) throws IOException { //метод update задачи
         tasks.put(task.getTaskId(), task);
     }  //метод update задачи
 
     @Override
-    public void updateSubtask(Subtask subtask) { //метод update подзадачи
+    public void updateSubtask(Subtask subtask) throws IOException { //метод update подзадачи
         subtasks.put(subtask.getTaskId(), subtask);
         updateEpicStatus(subtask.getEpicId());
     }
 
     @Override
-    public void updateEpic(Epic epic) {  //метод update эпика
+    public void updateEpic(Epic epic) throws IOException {  //метод update эпика
         Epic oldEpic = epics.get(epic.getTaskId());
         List<Integer> epicSubtasks1 = oldEpic.getEpicSubtasks();
         epics.put(epic.getTaskId(), epic);

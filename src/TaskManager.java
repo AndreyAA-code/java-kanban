@@ -31,11 +31,11 @@ public interface TaskManager {
 
     void deleteSubtaskById(Integer taskId);//удаление подзадачи по идентификатору
 
-    void updateTask(Task task); //метод update задачи
+    void updateTask(Task task) throws IOException; //метод update задачи
 
-    void updateSubtask(Subtask subtask); //метод update подзадачи
+    void updateSubtask(Subtask subtask) throws IOException; //метод update подзадачи
 
-    void updateEpic(Epic epic); //метод update эпика
+    void updateEpic(Epic epic) throws IOException; //метод update эпика
 
     void updateEpicStatus(Integer epicID); //метод update статуса Эпика
 

@@ -42,6 +42,10 @@ public class Main {
         // проверка правильности работы кода
         manager.printAllTasks(); // напечатать все задачи
 
+        manager.updateTask(new Task("taskname1", "taskdescr1", 1, TaskStatus.IN_PROGRESS));
+        manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));
+        manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 6, 3, TaskStatus.DONE));
+     //   manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 7, 3, TaskStatus.DONE));
 
 
        /* КОД 6 СПРИНТА
