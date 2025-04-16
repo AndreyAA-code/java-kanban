@@ -84,6 +84,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         sb = sb.delete(sb.indexOf("taskDescription="), (sb.indexOf("taskDescription=") + 16));
         sb = sb.delete(sb.indexOf("taskId="), (sb.indexOf("taskId=") + 7));
         sb = sb.delete(sb.indexOf("taskStatus="), (sb.indexOf("taskStatus=") + 11));
+        while (sb.indexOf("epicId=") != -1) {
+            sb = sb.delete(sb.indexOf("epicId="), (sb.indexOf("epicId=") + 7));
+        }
+
         while (sb.indexOf("'") != -1) {
             sb = sb.replace(sb.indexOf("'"), sb.indexOf("'") + 1, "");
         }
@@ -94,6 +98,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String sbResult = String.join(",", stringArray[3].trim(),
                 stringArray[0].toUpperCase(), stringArray[1], stringArray[4].toUpperCase().trim(),
                 stringArray[2].trim());
+        if (stringArray.length==6 && stringArray[0].equals("Subtask")) {
+           sbResult = sbResult + "," + stringArray[5].trim();
+        }
 
         return sbResult.toString();
     }
