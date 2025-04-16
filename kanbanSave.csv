@@ -1,3 +1,8 @@
 id,type,name,status,description,epic
-Task,taskname1, taskDescription=taskdescr1, taskId=1, taskStatus=NEW}
-Task,taskname2, taskDescription=taskdescr2, taskId=2, taskStatus=NEW}
+1,TASK,taskname 1,NEW,taskdescr1
+2,TASK,taskname 2,NEW,taskdescr2
+3,EPIC,epicname1,NEW,epicdescr1
+4,EPIC,epicname2,NEW,epicdescr2
+5,SUBTASK,subtaskname1,NEW,subtaskdescr1
+6,SUBTASK,subtaskname2,NEW,subtaskdescr2
+7,SUBTASK,subtaskname3,NEW,subtaskdescr3

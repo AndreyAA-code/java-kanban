@@ -11,9 +11,9 @@ public interface TaskManager {
 
     List<Subtask> getSubtasks(); //getter для hash map subtasks
 
-    void addSubtask(Subtask subtask);//метод добавления подзадачи
+    void addSubtask(Subtask subtask) throws IOException;//метод добавления подзадачи
 
-    void addEpic(Epic epic);//метод добавления Эпика
+    void addEpic(Epic epic) throws IOException;//метод добавления Эпика
 
     void printAllTasks();//печать всех задач//
 

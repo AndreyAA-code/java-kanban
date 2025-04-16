@@ -11,7 +11,8 @@ public class Main {
         //Проверка по ТЗ спринта 7
 
         // создаем файл для сохранения всех видов задач;
-        Path path = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
+       // Path path = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
+        Path path = Paths.get("kanbanSave.csv");
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
@@ -19,9 +20,9 @@ public class Main {
         TaskManager manager = Managers.getDefaultWithSave(path);
 
         //создаем 2 задачи
-        Task task1 = new Task("taskname1", "taskdescr1", TaskStatus.NEW);
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
-        Task task2 = new Task("taskname2", "taskdescr2", TaskStatus.NEW);
+        Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW);
         manager.addTask(task2);
 
         //создаем 2 эпика

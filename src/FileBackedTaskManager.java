@@ -7,26 +7,44 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.io.File;
 
-public class FileBackedTaskManager extends InMemoryTaskManager{
+public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private Path file;
 
     public FileBackedTaskManager(Path file) {
         super();
-        this.file=file;
+        this.file = file;
     }
 
 
     @Override
     public Integer addTask(Task task) throws IOException {  //метод добавления задачи
-       super.addTask(task);
-       save();
-       return task.taskId;
+        super.addTask(task);
+        save();
+        return task.taskId;
     }
+
+    @Override
+    public void addEpic(Epic epic) throws IOException { //метод добавления Эпика
+        super.addEpic(epic);
+        save();
+    }
+
+    @Override
+    public void addSubtask(Subtask subtask) throws IOException { //метод добавления подзадачи
+        super.addSubtask(subtask);
+        save();
+    }
+
 
     public void save() throws IOException {
 
-        Writer fileWriter = new FileWriter(file.toString());
+        Writer fileWriter = null;
+        try {
+            fileWriter = new FileWriter(file.toString());
+        } catch (IOException exception) {
+            throw new InputException("Внимание");
+        }
         fileWriter.write("id,type,name,status,description,epic\n");
 
         for (Integer task : tasks.keySet()) {
@@ -36,27 +54,48 @@ public class FileBackedTaskManager extends InMemoryTaskManager{
             System.out.println(string);
         }
 
+        for (Integer epic : epics.keySet()) {
+            String string = toString(epics.get(epic));
+
+            fileWriter.write(string + "\n");
+            System.out.println(string);
+        }
+
+        for (Integer subtask : subtasks.keySet()) {
+            String string = toString(subtasks.get(subtask));
+
+            fileWriter.write(string + "\n");
+            System.out.println(string);
+        }
+
+
+
+
         fileWriter.close();
     }
 
-    public String toString (Task task) {
-       String string = task.toString();
-       StringBuilder sb = new StringBuilder(string);
-       sb = sb.replace(sb.indexOf("{"), sb.indexOf("{") + 1, ",");
 
-       sb = sb.delete(sb.indexOf("taskName="), (sb.indexOf("TaskName=") + 1));
-       while (sb.indexOf("'")!=-1) {
-           sb = sb.replace(sb.indexOf("'"), sb.indexOf("'") + 1, "");
+    public String toString(Task task) {
+        String string = task.toString();
+        StringBuilder sb = new StringBuilder(string);
 
-       }
+        sb = sb.replace(sb.indexOf("{"), sb.indexOf("{") + 1, ",");
+        sb = sb.delete(sb.indexOf("taskName="), (sb.indexOf("taskName=") + 9));
+        sb = sb.delete(sb.indexOf("taskDescription="), (sb.indexOf("taskDescription=") + 16));
+        sb = sb.delete(sb.indexOf("taskId="), (sb.indexOf("taskId=") + 7));
+        sb = sb.delete(sb.indexOf("taskStatus="), (sb.indexOf("taskStatus=") + 11));
+        while (sb.indexOf("'") != -1) {
+            sb = sb.replace(sb.indexOf("'"), sb.indexOf("'") + 1, "");
+        }
+        while (sb.indexOf("}") != -1) {
+            sb = sb.replace(sb.indexOf("}"), sb.indexOf("}") + 1, "");
+        }
+        String[] stringArray = sb.toString().split(",");
+        String sbResult = String.join(",", stringArray[3].trim(),
+                stringArray[0].toUpperCase(), stringArray[1], stringArray[4].toUpperCase().trim(),
+                stringArray[2].trim());
 
-       String[] stringArray = task.toString().split(",");
-
-
-      //  StringBuilder sb = new StringBuilder(task.toString());
-
-
-       return sb.toString();
+        return sbResult.toString();
     }
 
 }

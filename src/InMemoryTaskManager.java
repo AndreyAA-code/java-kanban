@@ -8,8 +8,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     private Integer taskId = 0;//счетчик идентификатор сквозной для всех типов задач
     protected final HashMap<Integer, Task> tasks;
-    private final HashMap<Integer, Subtask> subtasks;
-    private final HashMap<Integer, Epic> epics;
+    protected final HashMap<Integer, Subtask> subtasks;
+    protected final HashMap<Integer, Epic> epics;
     private HistoryManager historyManager;
 
     public InMemoryTaskManager() {
@@ -38,7 +38,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addSubtask(Subtask subtask) { //метод добавления подзадачи
+    public void addSubtask(Subtask subtask) throws IOException { //метод добавления подзадачи
         taskIdCount();
         subtask.setTaskId(taskId);
         subtasks.put(taskId, subtask);
@@ -58,7 +58,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addEpic(Epic epic) { //метод добавления Эпика
+    public void addEpic(Epic epic) throws IOException { //метод добавления Эпика
         taskIdCount();
         epic.setTaskId(taskId);
         epics.put(taskId, epic);
