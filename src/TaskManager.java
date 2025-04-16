@@ -1,8 +1,9 @@
+import java.io.IOException;
 import java.util.List;
 
 public interface TaskManager {
 
-    Integer addTask(Task task);//метод добавления задачи
+    Integer addTask(Task task) throws IOException;//метод добавления задачи
 
     List<Task> getTasks(); //getter для hash map tasks
 

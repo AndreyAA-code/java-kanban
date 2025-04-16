@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Integer addTask(Task task) {  //метод добавления задачи
+    public Integer addTask(Task task) throws IOException {  //метод добавления задачи
         taskIdCount();
         task.setTaskId(taskId);
         tasks.put(taskId, task);

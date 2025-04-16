@@ -1,7 +1,13 @@
+import java.nio.file.Path;
+
 public class Managers {
 
     public static TaskManager getDefault() {
         return new InMemoryTaskManager();
+    }
+
+    public static TaskManager getDefaultWithSave(Path path) {
+        return new FileBackedTaskManager(path);
     }
 
     public static HistoryManager getDefaultHistory() {

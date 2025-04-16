@@ -1,9 +1,22 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        //Проверка по ТЗ спринта 6
 
-        TaskManager manager = Managers.getDefault();
+        //Проверка по ТЗ спринта 7
+
+        // создаем файл для сохранения всех видов задач;
+        Path path = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
+        //создаем новый менеджер с сохранением и передаем файл
+        TaskManager manager = Managers.getDefaultWithSave(path);
 
         //создаем 2 задачи
         Task task1 = new Task("taskname1", "taskdescr1", TaskStatus.NEW);
@@ -27,6 +40,13 @@ public class Main {
 
         // проверка правильности работы кода
         manager.printAllTasks(); // напечатать все задачи
+
+
+
+       /* КОД 6 СПРИНТА
+
+         //Проверка по ТЗ спринта 6
+        TaskManager manager = Managers.getDefault(); ДЛЯ ПРОВЕРКИ 6 СПРИНТА
 
         //Пустой список. Два запроса истории просмотра одной и той же задачи + update ее статуса
         System.out.println("\n пустой список. два запроса истории просмотра одной и той же задачи + update ее статуса");
@@ -97,6 +117,6 @@ public class Main {
         //manager.updateSubtask(new Subtask("subtaskname2new", "subtaskdescr2new",6, 3, TaskStatus.DONE)); //поменять статус задачи (передаем ID и новый статус)
         //manager.updateEpic(new Epic("epicname1new", "epicdescr1new", 4, TaskStatus.NEW));
         //manager.deleteAllTasks(); //удалить все задачи
-
+       */ //КОНЕЦ КОДА 6 СПРИНТА
     }
 }
