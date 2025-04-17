@@ -85,21 +85,18 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String string = toString(tasks.get(task));
 
             fileWriter.write(string + "\n");
-            System.out.println(string);
         }
 
         for (Integer epic : epics.keySet()) {
             String string = toString(epics.get(epic));
 
             fileWriter.write(string + "\n");
-            System.out.println(string);
         }
 
         for (Integer subtask : subtasks.keySet()) {
             String string = toString(subtasks.get(subtask));
 
             fileWriter.write(string + "\n");
-            System.out.println(string);
         }
         fileWriter.write("Счетчик заданий: " + taskId);
 
@@ -162,7 +159,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         if (value.contains("Счетчик заданий")) {
             String string = value.replace("Счетчик заданий: ", "");
             taskId = Integer.parseInt(string);
-            System.out.println(taskId);
             return;
         }
 
@@ -174,8 +170,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]));
             taskId = Integer.parseInt(line[0]) - 1;
             super.addTask(task);
-            //  tasks.put(Integer.parseInt(line[0]), task);
-            //  task.setTaskId(Integer.parseInt(line[0]));
 
         } else if (taskType.equals(TaskType.SUBTASK)) {
             Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatus.valueOf(line[3]));
