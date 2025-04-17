@@ -131,14 +131,12 @@ public class InMemoryTaskManager implements TaskManager {
             Epic epic = epics.get(taskId);
             for (Integer subtask : epic.getEpicSubtasks()) {
                 subtasks.remove(subtask);
-                if (!historyManager.equals(null)) {
                     historyManager.remove(subtask);
-                }
             }
             epics.remove(taskId);
-            if (!historyManager.equals(null)) {
+
                 historyManager.remove(taskId);
-            }
+
         } else {
             System.out.println("Такой задачи нет");
         }

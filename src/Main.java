@@ -1,4 +1,4 @@
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,9 +12,12 @@ public class Main {
 
         // создаем файл для сохранения всех видов задач;
        // Path path = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
-
+     Path path = Paths.get("kanbanSave.csv");
+     if (!Files.exists(path)) {
+      Files.createFile(path);
+     }
         //создаем новый менеджер с сохранением и передаем файл
-       TaskManager manager = Managers.getDefaultWithSave();
+       TaskManager manager = Managers.getDefaultWithSave(path);
 
        // Task task3 = new Task("taskname 3", "taskdescr3", TaskStatus.NEW);
     //    manager.addTask(task3);
@@ -55,6 +58,7 @@ public class Main {
 
    //  manager.deleteSubtaskById(7);
      manager.printAllTasks();
+     manager.getHistory();
 
     /*    manager.updateTask(new Task("taskname1", "taskdescr1", 1, TaskStatus.IN_PROGRESS));
         manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));

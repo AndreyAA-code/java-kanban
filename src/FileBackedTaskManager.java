@@ -4,16 +4,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
+
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private Path file = Paths.get("kanbanSave.csv");
-     //   if (File.exists) {
-    //    Files.createFile(file);
-    //}
-   // HistoryManager historyManager = Managers.getDefaultHistory();
+    private Path file;
 
-    public FileBackedTaskManager() throws IOException {
+    public FileBackedTaskManager(Path file) throws IOException {
         super();
+        this.file= file;
         restore();
     }
 

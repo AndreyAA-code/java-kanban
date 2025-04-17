@@ -7,8 +7,8 @@ public class Managers {
         return new InMemoryTaskManager();
     }
 
-    public static TaskManager getDefaultWithSave() throws IOException {
-        return new FileBackedTaskManager();
+    public static TaskManager getDefaultWithSave(Path path) throws IOException {
+        return new FileBackedTaskManager(path);
     }
 
     public static HistoryManager getDefaultHistory() {
