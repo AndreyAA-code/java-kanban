@@ -1,9 +1,8 @@
-import java.io.IOException;
 import java.util.List;
 
 public interface TaskManager {
 
-    Integer addTask(Task task) throws IOException;//метод добавления задачи
+    Integer addTask(Task task);//метод добавления задачи
 
     List<Task> getTasks(); //getter для hash map tasks
 
@@ -11,13 +10,13 @@ public interface TaskManager {
 
     List<Subtask> getSubtasks(); //getter для hash map subtasks
 
-    void addSubtask(Subtask subtask) throws IOException;//метод добавления подзадачи
+    void addSubtask(Subtask subtask);//метод добавления подзадачи
 
-    void addEpic(Epic epic) throws IOException;//метод добавления Эпика
+    void addEpic(Epic epic);//метод добавления Эпика
 
     void printAllTasks();//печать всех задач//
 
-    void deleteAllTasks() throws IOException;//удаление всех задач всех типов
+    void deleteAllTasks();//удаление всех задач всех типов
 
     Task getTaskById(Integer taskId);//получение задачи по идентификатору
 
@@ -25,17 +24,17 @@ public interface TaskManager {
 
     Epic getEpicById(Integer taskId); //получение эпика по идентификатору
 
-    void deleteTaskById(Integer taskId) throws IOException; //удаление задачи по идентификатору
+    void deleteTaskById(Integer taskId); //удаление задачи по идентификатору
 
-    void deleteEpicById(Integer taskId) throws IOException; //удаление эпика по идентификатору
+    void deleteEpicById(Integer taskId); //удаление эпика по идентификатору
 
     void deleteSubtaskById(Integer taskId);//удаление подзадачи по идентификатору
 
-    void updateTask(Task task) throws IOException; //метод update задачи
+    void updateTask(Task task); //метод update задачи
 
-    void updateSubtask(Subtask subtask) throws IOException; //метод update подзадачи
+    void updateSubtask(Subtask subtask); //метод update подзадачи
 
-    void updateEpic(Epic epic) throws IOException; //метод update эпика
+    void updateEpic(Epic epic); //метод update эпика
 
     void updateEpicStatus(Integer epicID); //метод update статуса Эпика
 

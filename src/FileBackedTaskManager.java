@@ -9,98 +9,95 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private Path file;
 
-    public FileBackedTaskManager(Path file) throws IOException {
+    public FileBackedTaskManager(Path file) {
         super();
-        this.file= file;
+        this.file = file;
         restore();
     }
 
 
     @Override
-    public Integer addTask(Task task) throws IOException {  //метод добавления задачи
+    public Integer addTask(Task task) {  //метод добавления задачи
         super.addTask(task);
         save();
         return task.taskId;
     }
 
     @Override
-    public void addEpic(Epic epic) throws IOException { //метод добавления Эпика
+    public void addEpic(Epic epic) { //метод добавления Эпика
         super.addEpic(epic);
         save();
     }
 
     @Override
-    public void addSubtask(Subtask subtask) throws IOException { //метод добавления подзадачи
+    public void addSubtask(Subtask subtask) { //метод добавления подзадачи
         super.addSubtask(subtask);
         save();
     }
 
     @Override
-    public void updateTask(Task task) throws IOException { //метод update задачи
+    public void updateTask(Task task) { //метод update задачи
         super.updateTask(task);
         save();
     }  //метод update задачи
 
     @Override
-    public void updateSubtask(Subtask subtask) throws IOException { //метод update подзадачи
+    public void updateSubtask(Subtask subtask) { //метод update подзадачи
         super.updateSubtask(subtask);
         save();
     }
 
     @Override
-    public void updateEpic(Epic epic) throws IOException {  //метод update эпика
+    public void updateEpic(Epic epic) {  //метод update эпика
         super.updateEpic(epic);
         save();
     }
 
     @Override
-    public void deleteAllTasks() throws IOException {  //удаление всех задач всех типов
+    public void deleteAllTasks() {  //удаление всех задач всех типов
         super.deleteAllTasks();
         save();
     }
 
     @Override
-    public void deleteTaskById(Integer taskId) throws IOException { //удаление задачи по идентификатору
+    public void deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
         super.deleteTaskById(taskId);
         save();
     }
 
     @Override
-    public void deleteEpicById(Integer taskId) throws IOException { //удаление эпика по идентификатору
+    public void deleteEpicById(Integer taskId) { //удаление эпика по идентификатору
         super.deleteEpicById(taskId);
         save();
     }
 
-    public void save() throws IOException {
+    public void save() {
 
-        Writer fileWriter = null;
-        try {
-            fileWriter = new FileWriter(file.toString());
+        try (Writer fileWriter = new FileWriter(file.toString())) {
+            fileWriter.write("id,type,name,status,description,epic\n");
+
+            for (Integer task : tasks.keySet()) {
+                String string = toString(tasks.get(task));
+
+                fileWriter.write(string + "\n");
+            }
+
+            for (Integer epic : epics.keySet()) {
+                String string = toString(epics.get(epic));
+
+                fileWriter.write(string + "\n");
+            }
+
+            for (Integer subtask : subtasks.keySet()) {
+                String string = toString(subtasks.get(subtask));
+
+                fileWriter.write(string + "\n");
+            }
+            fileWriter.write("Счетчик заданий: " + taskId);
         } catch (IOException exception) {
-            throw new InputException("Внимание");
-        }
-        fileWriter.write("id,type,name,status,description,epic\n");
-
-        for (Integer task : tasks.keySet()) {
-            String string = toString(tasks.get(task));
-
-            fileWriter.write(string + "\n");
+            throw new SaveRestoreException("Error. can't write file");
         }
 
-        for (Integer epic : epics.keySet()) {
-            String string = toString(epics.get(epic));
-
-            fileWriter.write(string + "\n");
-        }
-
-        for (Integer subtask : subtasks.keySet()) {
-            String string = toString(subtasks.get(subtask));
-
-            fileWriter.write(string + "\n");
-        }
-        fileWriter.write("Счетчик заданий: " + taskId);
-
-        fileWriter.close();
     }
 
     public String toString(Task task) {
@@ -133,25 +130,28 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return sbResult.toString();
     }
 
-    public void restore() throws IOException {
+    public void restore() {
+
         if (!Files.exists(file)) {
             return;
         }
-        Reader fileReader = new FileReader(file.toString());
-        BufferedReader br = new BufferedReader(fileReader);
+        try (Reader fileReader = new FileReader(file.toString())) {
+            BufferedReader br = new BufferedReader(fileReader);
 
-        while (br.ready()) {
+            while (br.ready()) {
 
-            String line = br.readLine();
-            fromString(line);
+                String line = br.readLine();
+                fromString(line);
 
+            }
+        } catch (IOException exception) {
+            throw new SaveRestoreException("Error. can't read file");
         }
 
-        fileReader.close();
     }
 
 
-    public void fromString(String value) throws IOException {
+    public void fromString(String value) {
 
         if (value.contains("id,type,name,status,description,epic")) {
             return;

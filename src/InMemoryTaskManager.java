@@ -1,5 +1,3 @@
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +22,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Integer addTask(Task task) throws IOException {  //метод добавления задачи
+    public Integer addTask(Task task) {  //метод добавления задачи
         taskIdCount();
         task.setTaskId(taskId);
         tasks.put(taskId, task);
@@ -37,7 +35,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addSubtask(Subtask subtask) throws IOException { //метод добавления подзадачи
+    public void addSubtask(Subtask subtask) { //метод добавления подзадачи
         taskIdCount();
         subtask.setTaskId(taskId);
         subtasks.put(taskId, subtask);
@@ -57,7 +55,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void addEpic(Epic epic) throws IOException { //метод добавления Эпика
+    public void addEpic(Epic epic) { //метод добавления Эпика
         taskIdCount();
         epic.setTaskId(taskId);
         epics.put(taskId, epic);
@@ -89,7 +87,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteAllTasks() throws IOException {  //удаление всех задач всех типов
+    public void deleteAllTasks() {  //удаление всех задач всех типов
         tasks.clear();
         subtasks.clear();
         epics.clear();
@@ -116,7 +114,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteTaskById(Integer taskId) throws IOException { //удаление задачи по идентификатору
+    public void deleteTaskById(Integer taskId)  { //удаление задачи по идентификатору
         if (tasks.get(taskId) != null) {
             tasks.remove(taskId);
                 historyManager.remove(taskId);
@@ -126,7 +124,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteEpicById(Integer taskId) throws IOException { //удаление эпика по идентификатору
+    public void deleteEpicById(Integer taskId)  { //удаление эпика по идентификатору
         if (epics.get(taskId) != null) {
             Epic epic = epics.get(taskId);
             for (Integer subtask : epic.getEpicSubtasks()) {
@@ -160,18 +158,18 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updateTask(Task task) throws IOException { //метод update задачи
+    public void updateTask(Task task) { //метод update задачи
         tasks.put(task.getTaskId(), task);
     }  //метод update задачи
 
     @Override
-    public void updateSubtask(Subtask subtask) throws IOException { //метод update подзадачи
+    public void updateSubtask(Subtask subtask) { //метод update подзадачи
         subtasks.put(subtask.getTaskId(), subtask);
         updateEpicStatus(subtask.getEpicId());
     }
 
     @Override
-    public void updateEpic(Epic epic) throws IOException {  //метод update эпика
+    public void updateEpic(Epic epic) {  //метод update эпика
         Epic oldEpic = epics.get(epic.getTaskId());
         List<Integer> epicSubtasks1 = oldEpic.getEpicSubtasks();
         epics.put(epic.getTaskId(), epic);
