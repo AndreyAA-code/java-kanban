@@ -1,6 +1,3 @@
 id,type,name,status,description,epic
-2,TASK,taskname 2,NEW,taskdescr2
-3,EPIC,epicname1,NEW,epicdescr1
-5,SUBTASK,subtaskname1,NEW,subtaskdescr1,3
-6,SUBTASK,subtaskname2,NEW,subtaskdescr2,3
-Счетчик заданий: 7
+1,TASK,taskname1,NEW,taskdescr1
+Счетчик заданий: 1
