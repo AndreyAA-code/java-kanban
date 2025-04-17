@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Path;
 
 public class Managers {
@@ -6,7 +7,7 @@ public class Managers {
         return new InMemoryTaskManager();
     }
 
-    public static TaskManager getDefaultWithSave(Path path) {
+    public static TaskManager getDefaultWithSave(Path path) throws IOException {
         return new FileBackedTaskManager(path);
     }
 

@@ -18,7 +18,8 @@ public class Main {
         }
         //создаем новый менеджер с сохранением и передаем файл
         TaskManager manager = Managers.getDefaultWithSave(path);
-
+        manager.printAllTasks();
+/*
         //создаем 2 задачи
         Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
