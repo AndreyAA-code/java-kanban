@@ -35,11 +35,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-    @Override
+    @Override  //метод update задачи
     public void updateTask(Task task) { //метод update задачи
         super.updateTask(task);
         save();
-    }  //метод update задачи
+    }
 
     @Override
     public void updateSubtask(Subtask subtask) { //метод update подзадачи

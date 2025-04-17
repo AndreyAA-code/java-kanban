@@ -11,29 +11,28 @@ public class Main {
         //Проверка по ТЗ спринта 7
 
         // создаем файл для сохранения всех видов задач;
-       // Path path = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
-     Path path = Paths.get("kanbanSave.csv");
-     if (!Files.exists(path)) {
-      Files.createFile(path);
-     }
+        // Path path = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
+        Path path = Paths.get("kanbanSave.csv");
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
         //создаем новый менеджер с сохранением и передаем файл
-       TaskManager manager = Managers.getDefaultWithSave(path);
+        TaskManager manager = Managers.getDefaultWithSave(path);
 
-       // Task task3 = new Task("taskname 3", "taskdescr3", TaskStatus.NEW);
-    //    manager.addTask(task3);
-     //   manager.deleteTaskById(10); //удалить задачу (передаем ID)
-     //   manager.deleteTaskById(11);
-        //  manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));
-      //  manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 6, 3, TaskStatus.DONE));
-      //     manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 7, 3, TaskStatus.DONE));
-    //    manager.printAllTasks();
-   //  manager.deleteTaskById(2);
+        // Task task3 = new Task("taskname 3", "taskdescr3", TaskStatus.NEW);
+        // manager.addTask(task3);
+        // manager.deleteTaskById(10); //удалить задачу (передаем ID)
+        // manager.deleteTaskById(11);
+        // manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));
+        // manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 6, 3, TaskStatus.DONE));
+        // manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 7, 3, TaskStatus.DONE));
+        // manager.printAllTasks();
+        // manager.deleteTaskById(2);
         //создаем 2 задачи
-         Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW);
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
-     Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW);
+        Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW);
         manager.addTask(task2);
-
 
 
         //создаем 2 эпика
@@ -52,13 +51,13 @@ public class Main {
 
         // проверка правильности работы кода
         manager.printAllTasks(); // напечатать все задачи
-     manager.deleteTaskById(1);
-     manager.deleteSubtaskById(7);
-     manager.deleteEpicById(4);
+        manager.deleteTaskById(1);
+        manager.deleteSubtaskById(7);
+        manager.deleteEpicById(4);
 
-   //  manager.deleteSubtaskById(7);
-     manager.printAllTasks();
-     manager.getHistory();
+        //  manager.deleteSubtaskById(7);
+        manager.printAllTasks();
+        manager.getHistory();
 
     /*    manager.updateTask(new Task("taskname1", "taskdescr1", 1, TaskStatus.IN_PROGRESS));
         manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));
