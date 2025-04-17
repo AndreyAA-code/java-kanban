@@ -27,7 +27,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-       if (historyNodesListLink.get(id) == null){
+       if (historyNodesListLink.get(id) == null) {
            return;
        }
         removeNode(historyNodesListLink.get(id));
