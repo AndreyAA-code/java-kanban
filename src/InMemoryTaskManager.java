@@ -6,15 +6,14 @@ import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private Integer taskId = 0;//счетчик идентификатор сквозной для всех типов задач
+    protected Integer taskId = 0;//счетчик идентификатор сквозной для всех типов задач
     protected final HashMap<Integer, Task> tasks;
     protected final HashMap<Integer, Subtask> subtasks;
     protected final HashMap<Integer, Epic> epics;
-    protected HistoryManager historyManager;
+    public HistoryManager historyManager;
 
     public InMemoryTaskManager() {
         historyManager = Managers.getDefaultHistory();
-
         tasks = new HashMap<>();
         subtasks = new HashMap<>();
         epics = new HashMap<>();
@@ -90,7 +89,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteAllTasks() {  //удаление всех задач всех типов
+    public void deleteAllTasks() throws IOException {  //удаление всех задач всех типов
         tasks.clear();
         subtasks.clear();
         epics.clear();
@@ -117,25 +116,29 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
+    public void deleteTaskById(Integer taskId) throws IOException { //удаление задачи по идентификатору
         if (tasks.get(taskId) != null) {
             tasks.remove(taskId);
-            historyManager.remove(taskId);
+                historyManager.remove(taskId);
         } else {
             System.out.println("Такой задачи нет");
         }
     }
 
     @Override
-    public void deleteEpicById(Integer taskId) { //удаление эпика по идентификатору
+    public void deleteEpicById(Integer taskId) throws IOException { //удаление эпика по идентификатору
         if (epics.get(taskId) != null) {
             Epic epic = epics.get(taskId);
             for (Integer subtask : epic.getEpicSubtasks()) {
                 subtasks.remove(subtask);
-                historyManager.remove(subtask);
+                if (!historyManager.equals(null)) {
+                    historyManager.remove(subtask);
+                }
             }
             epics.remove(taskId);
-            historyManager.remove(taskId);
+            if (!historyManager.equals(null)) {
+                historyManager.remove(taskId);
+            }
         } else {
             System.out.println("Такой задачи нет");
         }
@@ -149,7 +152,9 @@ public class InMemoryTaskManager implements TaskManager {
             List<Integer> epicSubtasks = epic.getEpicSubtasks();
             epicSubtasks.remove(taskId);
             subtasks.remove(taskId);
-            historyManager.remove(taskId);
+            if (!historyManager.equals(null)) {
+                historyManager.remove(taskId);
+            }
             updateEpicStatus(subtask.getEpicId());
         } else {
             System.out.println("Такой задачи нет");

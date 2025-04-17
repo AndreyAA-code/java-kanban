@@ -6,11 +6,14 @@ import java.nio.file.Files;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private Path file;
+    private Path file = Paths.get("kanbanSave.csv");
+     //   if (File.exists) {
+    //    Files.createFile(file);
+    //}
+   // HistoryManager historyManager = Managers.getDefaultHistory();
 
-    public FileBackedTaskManager(Path file) throws IOException {
+    public FileBackedTaskManager() throws IOException {
         super();
-        this.file = file;
         restore();
     }
 
@@ -52,6 +55,24 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+    @Override
+    public void deleteAllTasks() throws IOException {  //удаление всех задач всех типов
+        super.deleteAllTasks();
+        save();
+    }
+
+    @Override
+    public void deleteTaskById(Integer taskId) throws IOException { //удаление задачи по идентификатору
+        super.deleteTaskById(taskId);
+        save();
+    }
+
+    @Override
+    public void deleteEpicById(Integer taskId) throws IOException { //удаление эпика по идентификатору
+        super.deleteEpicById(taskId);
+        save();
+    }
+
     public void save() throws IOException {
 
         Writer fileWriter = null;
@@ -82,7 +103,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             fileWriter.write(string + "\n");
             System.out.println(string);
         }
-
+        fileWriter.write("Счетчик заданий: " + taskId);
 
         fileWriter.close();
     }
@@ -140,28 +161,37 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         if (value.contains("id,type,name,status,description,epic")) {
             return;
         }
+        if (value.contains("Счетчик заданий")) {
+            String string = value.replace("Счетчик заданий: ", "");
+            taskId = Integer.parseInt(string);
+            System.out.println(taskId);
+            return;
+        }
 
         String[] line = value.split(",");
+
         TaskType taskType = TaskType.valueOf(line[1]);
 
         if (taskType.equals(TaskType.TASK)) {
-           // System.out.println("task");
-
-           // String result = String.join(",", line[2], line[4], "TaskStatus." + line[3]);
-
             Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]));
-            tasks.put(Integer.parseInt(line[0]), task);
-            task.setTaskId(Integer.parseInt(line[0]));
-
+            taskId = Integer.parseInt(line[0]) - 1;
+            super.addTask(task);
+            //  tasks.put(Integer.parseInt(line[0]), task);
+            //  task.setTaskId(Integer.parseInt(line[0]));
 
         } else if (taskType.equals(TaskType.SUBTASK)) {
-            System.out.println("subtask");
-        } else if (taskType.equals(TaskType.EPIC)) {
-            System.out.println("epic");
-        } else {
-            System.out.println("error");
-        }
+            Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatus.valueOf(line[3]));
+            taskId = Integer.parseInt(line[0]) - 1;
+            super.addSubtask(subtask);
 
+        } else if (taskType.equals(TaskType.EPIC)) {
+            Epic epic = new Epic(line[2], line[4], TaskStatus.valueOf(line[3]));
+            taskId = Integer.parseInt(line[0]) - 1;
+            super.addEpic(epic);
+
+        } else {
+            System.out.println("Данные в файле повреждены. Загрузка невозможна");
+        }
 
     }
 

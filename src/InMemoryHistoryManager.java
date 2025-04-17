@@ -2,10 +2,10 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private Node head = null;
-    private Node tail;
+    protected Node head = null;
+    protected Node tail;
 
-    private static Map<Integer, Node<Task>> historyNodesListLink; //для быстрого поиска нода для удаления
+    protected static Map<Integer, Node<Task>> historyNodesListLink; //для быстрого поиска нода для удаления
 
     public InMemoryHistoryManager() {
         historyNodesListLink = new HashMap<>();
@@ -27,6 +27,9 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
+       if (historyNodesListLink.get(id)==null){
+           return;
+       }
         removeNode(historyNodesListLink.get(id));
     }
 

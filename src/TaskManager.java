@@ -17,7 +17,7 @@ public interface TaskManager {
 
     void printAllTasks();//печать всех задач//
 
-    void deleteAllTasks();//удаление всех задач всех типов
+    void deleteAllTasks() throws IOException;//удаление всех задач всех типов
 
     Task getTaskById(Integer taskId);//получение задачи по идентификатору
 
@@ -25,9 +25,9 @@ public interface TaskManager {
 
     Epic getEpicById(Integer taskId); //получение эпика по идентификатору
 
-    void deleteTaskById(Integer taskId); //удаление задачи по идентификатору
+    void deleteTaskById(Integer taskId) throws IOException; //удаление задачи по идентификатору
 
-    void deleteEpicById(Integer taskId); //удаление эпика по идентификатору
+    void deleteEpicById(Integer taskId) throws IOException; //удаление эпика по идентификатору
 
     void deleteSubtaskById(Integer taskId);//удаление подзадачи по идентификатору
 
