@@ -14,7 +14,7 @@ class FileBackedTaskManagerTest {
     @Test
     void testAddTask() throws IOException {
 
-        TaskManager taskManager = Managers.getDefaultWithSave(path);
+        TaskManager taskManager = Managers.getDefaultWithSave();
 
         Task task1 = new Task("taskname1", "taskdescr1", TaskStatus.NEW);
         taskManager.addTask(task1);
@@ -32,7 +32,7 @@ class FileBackedTaskManagerTest {
     @Test
     void tryToSaveInformationsInFile() throws IOException {
 
-        TaskManager taskManager = Managers.getDefaultWithSave(path);
+        TaskManager manager = FileBackedTaskManager.loadFromFile(path);
         String saveLine;
         String restoreLine;
         try (Writer fileWriter = new FileWriter(path.toString())) {

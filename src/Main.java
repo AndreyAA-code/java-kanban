@@ -17,10 +17,13 @@ public class Main {
             Files.createFile(path);
         }
         //создаем новый менеджер с сохранением и передаем файл
-        TaskManager manager = Managers.getDefaultWithSave(path);
+        TaskManager manager = FileBackedTaskManager.loadFromFile(path);
 
-        // Task task3 = new Task("taskname 3", "taskdescr3", TaskStatus.NEW);
-        // manager.addTask(task3);
+      //  manager.printAllTasks();
+
+         Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW);
+         manager.addTask(task3);
+        manager.printAllTasks();
         // manager.deleteTaskById(10); //удалить задачу (передаем ID)
         // manager.deleteTaskById(11);
         // manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));
@@ -28,7 +31,7 @@ public class Main {
         // manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 7, 3, TaskStatus.DONE));
         // manager.printAllTasks();
         // manager.deleteTaskById(2);
-        //создаем 2 задачи
+    /*    //создаем 2 задачи
         Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
         Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW);

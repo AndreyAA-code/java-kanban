@@ -22,11 +22,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Integer addTask(Task task) {  //метод добавления задачи
+    public void addTask(Task task) {  //метод добавления задачи
         taskIdCount();
         task.setTaskId(taskId);
         tasks.put(taskId, task);
-        return taskId;
+       // return taskId;
     }
 
     @Override

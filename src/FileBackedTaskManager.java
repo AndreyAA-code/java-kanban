@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Files;
@@ -6,20 +7,19 @@ import java.nio.file.Files;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private Path file;
+    private Path file = Paths.get("kanbanSave.csv");
 
-    public FileBackedTaskManager(Path file) {
+    public FileBackedTaskManager() {
         super();
         this.file = file;
-        restore();
+        //loadFromFile(file);
     }
 
 
     @Override
-    public Integer addTask(Task task) {  //метод добавления задачи
+    public void addTask(Task task) {  //метод добавления задачи
         super.addTask(task);
         save();
-        return task.taskId;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-    public void save() {
+    private void save() {
 
         try (Writer fileWriter = new FileWriter(file.toString())) {
             fileWriter.write("id,type,name,status,description,epic\n");
@@ -99,7 +99,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     }
 
-    public String toString(Task task) {
+    private String toString(Task task) {
         String string = task.toString();
         StringBuilder sb = new StringBuilder(string);
 
@@ -129,28 +129,27 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return sbResult.toString();
     }
 
-    public void restore() {
 
-        if (!Files.exists(file)) {
-            return;
-        }
+    static FileBackedTaskManager loadFromFile(Path file) {
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
+
         try (Reader fileReader = new FileReader(file.toString())) {
             BufferedReader br = new BufferedReader(fileReader);
 
             while (br.ready()) {
 
                 String line = br.readLine();
-                fromString(line);
+                fileBackedTaskManager.fromString(line);
 
             }
         } catch (IOException exception) {
             throw new SaveRestoreException("Error. can't read file");
         }
-
+       return fileBackedTaskManager;
     }
 
 
-    public void fromString(String value) {
+    private void fromString(String value) {
 
         if (value.contains("id,type,name,status,description,epic")) {
             return;

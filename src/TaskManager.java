@@ -2,7 +2,7 @@ import java.util.List;
 
 public interface TaskManager {
 
-    Integer addTask(Task task);//метод добавления задачи
+    void addTask(Task task);//метод добавления задачи
 
     List<Task> getTasks(); //getter для hash map tasks
 
