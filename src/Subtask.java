@@ -1,4 +1,5 @@
 public class Subtask extends Task {
+
     private Integer epicId;
 
     protected Subtask(String taskName, String taskDescription, Integer epicId, TaskStatus taskStatus) {
@@ -11,6 +12,7 @@ public class Subtask extends Task {
         this.epicId = epicId;
         this.taskId = taskId;
     }
+
     public Integer getEpicId() {
         return epicId;
     }
