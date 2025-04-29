@@ -1,3 +1,4 @@
-id,type,name,status,description,epic
-1,TASK,taskname1,NEW,taskdescr1
-Счетчик заданий: 1
+id,type,name,status,description,epic,duration,startTime
+1,TASK,taskname 4,NEW,taskdescr3,30,2025-04-29T13:52:17.939868Z
+2,TASK,taskname 4,NEW,taskdescr3,30,2025-04-29T13:52:30.792805Z
+Счетчик заданий: 2

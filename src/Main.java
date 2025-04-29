@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -21,8 +24,10 @@ public class Main {
 
       //  manager.printAllTasks();
 
-         Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW);
+         Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW, 30, Instant.now());
          manager.addTask(task3);
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW);
+        manager.addSubtask(subtask1);
         manager.printAllTasks();
         // manager.deleteTaskById(10); //удалить задачу (передаем ID)
         // manager.deleteTaskById(11);
