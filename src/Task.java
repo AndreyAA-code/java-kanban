@@ -8,8 +8,8 @@ public class Task {
     protected String taskDescription;
     protected Integer taskId;
     protected TaskStatus taskStatus;
-    protected long duration;
-    protected Instant startTime;
+    public Duration duration;
+    public LocalDateTime startTime;
 
 
     public Integer getTaskId() {
@@ -34,7 +34,7 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public Task(String taskName, String taskDescription, TaskStatus taskStatus, long duration, Instant startTime) {
+    public Task(String taskName, String taskDescription, TaskStatus taskStatus, Duration duration, LocalDateTime startTime) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;

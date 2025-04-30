@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +39,7 @@ class InMemoryTaskManagerTest {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         manager.addEpic(epic1);
         Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW);
         manager.addSubtask(subtask1);
@@ -54,7 +56,7 @@ class InMemoryTaskManagerTest {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         manager.addEpic(epic1);
 
         List<Epic> testEpic = manager.getEpics();
@@ -69,7 +71,7 @@ class InMemoryTaskManagerTest {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         manager.addEpic(epic1);
         Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW);
         manager.addSubtask(subtask1);
@@ -90,7 +92,7 @@ class InMemoryTaskManagerTest {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         manager.addEpic(epic1);
         Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW);
         manager.addSubtask(subtask1);

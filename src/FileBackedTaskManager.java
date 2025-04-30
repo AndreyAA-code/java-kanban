@@ -1,6 +1,8 @@
 import java.io.*;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.nio.file.Path;
 
@@ -124,7 +126,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String sbResult = String.join(",", stringArray[3].trim(),
                 stringArray[0].toUpperCase(), stringArray[1], stringArray[4].toUpperCase().trim(),
                 stringArray[2].trim(),stringArray[5].trim(), stringArray[6].trim());
-        if (stringArray.length == 6 && stringArray[0].equals("Subtask")) {
+        if (stringArray.length == 7 && stringArray[0].equals("Subtask")) {
             sbResult = sbResult + "," + stringArray[5].trim();
         }
 
@@ -167,7 +169,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         TaskType taskType = TaskType.valueOf(line[1]);
 
         if (taskType.equals(TaskType.TASK)) {
-            Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]), Long.valueOf(line[5]), Instant.parse(line[6]));
+            Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]), Duration.parse(line[5]), LocalDateTime.parse(line[6]));
             taskId = Integer.parseInt(line[0]) - 1;
             super.addTask(task);
 

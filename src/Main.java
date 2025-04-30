@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 public class Main {
@@ -24,11 +23,11 @@ public class Main {
 
       //  manager.printAllTasks();
 
-         Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW, 30, Instant.now());
+        Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW, Duration.ofHours(2), LocalDateTime.now());
          manager.addTask(task3);
-        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW);
-        manager.addSubtask(subtask1);
-        manager.printAllTasks();
+     //   Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW);
+      //  manager.addSubtask(subtask1);
+      //  manager.printAllTasks();
         // manager.deleteTaskById(10); //удалить задачу (передаем ID)
         // manager.deleteTaskById(11);
         // manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));
@@ -36,6 +35,10 @@ public class Main {
         // manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 7, 3, TaskStatus.DONE));
         // manager.printAllTasks();
         // manager.deleteTaskById(2);
+      //  Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        manager.addEpic(epic1);
+        manager.printAllTasks();
     /*    //создаем 2 задачи
         Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
