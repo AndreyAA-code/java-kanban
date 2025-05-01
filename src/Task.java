@@ -8,8 +8,8 @@ public class Task {
     protected String taskDescription;
     protected Integer taskId;
     protected TaskStatus taskStatus;
-    public Duration duration;
-    public LocalDateTime startTime;
+    protected Duration duration;
+    protected LocalDateTime startTime;
 
 
     public Integer getTaskId() {

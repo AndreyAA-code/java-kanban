@@ -8,13 +8,14 @@ public class Epic extends Task {
     private List<Integer> epicSubtasks;
     private Duration duration;
     private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     public Epic(String taskName, String taskDescription, TaskStatus taskStatus) {
         super(taskName, taskDescription, taskStatus);
         epicSubtasks = new ArrayList<>();
         this.duration = Duration.of(0,ChronoUnit.MINUTES);
         this.startTime = LocalDateTime.now();
-      //  this.endTime = LocalDateTime.of(3000,1,1,1,0);
+        this.endTime = this.startTime;
     }
 
     public Epic(String taskName, String taskDescription, Integer taskId, TaskStatus taskStatus) {
@@ -47,7 +48,7 @@ public class Epic extends Task {
     }
     public String toStringFileEpic() {
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
-                taskId, TaskType.EPIC, taskName, taskStatus, taskDescription,"",epicSubtasks, duration.toMinutes(), startTime,"");
+                taskId, TaskType.EPIC, taskName, taskStatus, taskDescription,"",epicSubtasks, duration.toMinutes(), startTime,endTime);
 
     }
 }
