@@ -24,25 +24,25 @@ public class Main {
 
        // Проверка по ТЗ спринта 8
 
-        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(10), LocalDateTime.now());
         manager.addTask(task1);
-        Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW,Duration.ofMinutes(2), LocalDateTime.now());
+        Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW,Duration.ofMinutes(10), LocalDateTime.now());
         manager.addTask(task2);
 
         Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         manager.addEpic(epic1);
 
-        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(10), LocalDateTime.now());
         manager.addSubtask(subtask1);
-        Subtask subtask2 = new Subtask("subtaskname2", "subtaskdescr2", 3, TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        Subtask subtask2 = new Subtask("subtaskname2", "subtaskdescr2", 3, TaskStatus.NEW, Duration.ofMinutes(10), LocalDateTime.now());
         manager.addSubtask(subtask2);
-        Subtask subtask3 = new Subtask("subtaskname3", "subtaskdescr3", 3, TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        Subtask subtask3 = new Subtask("subtaskname3", "subtaskdescr3", 3, TaskStatus.NEW, Duration.ofMinutes(10), LocalDateTime.now());
         manager.addSubtask(subtask3);
         manager.printAllTasks();
 
-        manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 4, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
-        manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 5, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
-        manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
+        manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 4, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
+        manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 5, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
+        manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
 
 
         manager.printAllTasks();

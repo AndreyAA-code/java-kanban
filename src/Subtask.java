@@ -31,12 +31,15 @@ public class Subtask extends Task {
                 ", taskId=" + taskId +
                 ", taskStatus=" + taskStatus +
                 ", epicId=" + epicId +
+                ", duration=" + duration +
+                ", startTime=" + startTime +
+                ", endTime=" + getEndTime() +
                 '}';
     }
 
     public String toStringFileSubtask() {
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
-                taskId, TaskType.SUBTASK, taskName, taskStatus, taskDescription,epicId,"", duration.toMinutes(), startTime,"");
+                taskId, TaskType.SUBTASK, taskName, taskStatus, taskDescription,epicId,"", duration.toMinutes(), startTime,getEndTime());
 
     }
 }

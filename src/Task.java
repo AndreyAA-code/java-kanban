@@ -44,7 +44,7 @@ public class Task {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime(Duration duration, LocalDateTime startTime) {
+    public LocalDateTime getEndTime() {
         return startTime.plus(duration);
     }
 
@@ -59,11 +59,12 @@ public class Task {
                 ", taskStatus=" + taskStatus +
                 ", duration=" + duration +
                 ", startTime=" + startTime +
+                ", endTime=" + getEndTime() +
                 '}';
     }
     public String toStringFile() {
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
-                taskId, TaskType.TASK, taskName, taskStatus, taskDescription, "", "", duration.toMinutes(), startTime,"");
+                taskId, TaskType.TASK, taskName, taskStatus, taskDescription, "", "", duration.toMinutes(), startTime, getEndTime());
     }
 
 }
