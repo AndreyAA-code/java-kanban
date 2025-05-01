@@ -44,6 +44,7 @@ public class Main {
         manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 5, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
         manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
 
+
         manager.printAllTasks();
 
         //Проверка по ТЗ спринта 7
