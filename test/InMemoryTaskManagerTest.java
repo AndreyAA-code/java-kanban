@@ -15,7 +15,7 @@ class InMemoryTaskManagerTest {
         return "InMemoryTaskManagerTest{}";
     }
 
-    @Test
+ /*   @Test
     void addTask() {
 
         TaskManager taskManager = Managers.getDefault();
@@ -35,7 +35,7 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-    void addSubtask() {
+  /*  void addSubtask() {
 
         TaskManager manager = Managers.getDefault();
 

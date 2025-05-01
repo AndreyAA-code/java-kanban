@@ -75,22 +75,22 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void save() {
 
         try (Writer fileWriter = new FileWriter(file.toString())) {
-            fileWriter.write("id,type,name,status,description,epic,duration,startTime\n");
+            fileWriter.write("id,type,name,status,description,epic,subtasks,duration,startTime,endTime\n");
 
             for (Integer task : tasks.keySet()) {
-                String string = toString(tasks.get(task));
+                String string = tasks.get(task).toStringFile();
 
                 fileWriter.write(string + "\n");
             }
 
             for (Integer epic : epics.keySet()) {
-                String string = toString(epics.get(epic));
+                String string = epics.get(epic).toStringFileEpic();
 
                 fileWriter.write(string + "\n");
             }
 
             for (Integer subtask : subtasks.keySet()) {
-                String string = toString(subtasks.get(subtask));
+                String string = subtasks.get(subtask).toStringFileSubtask();
 
                 fileWriter.write(string + "\n");
             }
@@ -100,7 +100,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
 
     }
-
+/*
     private String toString(Task task) {
         String string = task.toString();
         StringBuilder sb = new StringBuilder(string);
@@ -132,7 +132,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         return sbResult.toString();
     }
-
+*/
 
     static FileBackedTaskManager loadFromFile(Path file) {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
@@ -155,7 +155,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private void fromString(String value) {
 
-        if (value.contains("id,type,name,status,description,epic,duration,startTime")) {
+        if (value.contains("id,type,name,status,description,epic,subtasks,duration,startTime,endTime")) {
             return;
         }
         if (value.contains("Счетчик заданий")) {
@@ -169,12 +169,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         TaskType taskType = TaskType.valueOf(line[1]);
 
         if (taskType.equals(TaskType.TASK)) {
-            Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]), Duration.parse(line[5]), LocalDateTime.parse(line[6]));
+            Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]), Duration.ofMinutes(Long.parseLong(line[7])), LocalDateTime.parse(line[8]));
             taskId = Integer.parseInt(line[0]) - 1;
             super.addTask(task);
-
+        //    id,type,name,status,description,epic,subtasks,duration,startTime,endTime
+         //   1,TASK,taskname 4,NEW,taskdescr3,,,2,2025-05-01T18:45:17.761086,
+            //4,SUBTASK,subtaskname1,NEW,subtaskdescr1,3,,2,2025-05-01T21:48:52.735215,
         } else if (taskType.equals(TaskType.SUBTASK)) {
-            Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatus.valueOf(line[3]));
+            Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatus.valueOf(line[3]), Duration.ofMinutes(Long.parseLong(line[7])), LocalDateTime.parse(line[8]));
             taskId = Integer.parseInt(line[0]) - 1;
             super.addSubtask(subtask);
 

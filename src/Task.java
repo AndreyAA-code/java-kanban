@@ -27,11 +27,13 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public Task(String taskName, String taskDescription, Integer taskId, TaskStatus taskStatus) {
+    public Task(String taskName, String taskDescription, Integer taskId, TaskStatus taskStatus,Duration duration, LocalDateTime startTime) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskId = taskId;
         this.taskStatus = taskStatus;
+        this.duration = duration;
+        this.startTime = startTime;
     }
 
     public Task(String taskName, String taskDescription, TaskStatus taskStatus, Duration duration, LocalDateTime startTime) {
@@ -58,6 +60,10 @@ public class Task {
                 ", duration=" + duration +
                 ", startTime=" + startTime +
                 '}';
+    }
+    public String toStringFile() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                taskId, TaskType.TASK, taskName, taskStatus, taskDescription, "", "", duration.toMinutes(), startTime,"");
     }
 
 }

@@ -21,13 +21,36 @@ public class Main {
         //создаем новый менеджер с сохранением и передаем файл
         TaskManager manager = FileBackedTaskManager.loadFromFile(path);
 
-      //  manager.printAllTasks();
 
-        Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW, Duration.ofHours(2), LocalDateTime.now());
-         manager.addTask(task3);
+       // Проверка по ТЗ спринта 8
+
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        manager.addTask(task1);
+        Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW,Duration.ofMinutes(2), LocalDateTime.now());
+        manager.addTask(task2);
+
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        manager.addEpic(epic1);
+
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        manager.addSubtask(subtask1);
+        Subtask subtask2 = new Subtask("subtaskname2", "subtaskdescr2", 3, TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        manager.addSubtask(subtask2);
+        Subtask subtask3 = new Subtask("subtaskname3", "subtaskdescr3", 3, TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+        manager.addSubtask(subtask3);
+        manager.printAllTasks();
+
+        manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 4, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
+        manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 5, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
+        manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(2), LocalDateTime.now()));
+
+        manager.printAllTasks();
+
+        //Проверка по ТЗ спринта 7
+       // Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
+       // manager.addTask(task3);
      //   Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW);
       //  manager.addSubtask(subtask1);
-      //  manager.printAllTasks();
         // manager.deleteTaskById(10); //удалить задачу (передаем ID)
         // manager.deleteTaskById(11);
         // manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 5, 3, TaskStatus.DONE));
@@ -35,10 +58,10 @@ public class Main {
         // manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 7, 3, TaskStatus.DONE));
         // manager.printAllTasks();
         // manager.deleteTaskById(2);
-      //  Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
-        manager.addEpic(epic1);
-        manager.printAllTasks();
+       // Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+       // Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+     //   manager.addEpic(epic1);
+      //  manager.printAllTasks();
     /*    //создаем 2 задачи
         Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW);
         manager.addTask(task1);
