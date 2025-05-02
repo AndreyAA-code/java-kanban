@@ -213,7 +213,7 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = epics.get(epicId);
         LocalDateTime epicStartTime = epic.getStartTime();
         LocalDateTime epicEndTime = epic.getEndTime();
-        Duration epicDuration = epic.getDuration();
+        Duration epicDuration = Duration.ofMinutes(0);
         for (Integer subtaskId : epic.getEpicSubtasks()) {
             Subtask subtask = subtasks.get(subtaskId);
             if (subtask.startTime.isBefore(epicStartTime)) {
