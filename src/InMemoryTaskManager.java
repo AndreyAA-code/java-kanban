@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,7 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = epics.get(subtask.getEpicId());
         epic.getEpicSubtasks().add(subtask.taskId);
         updateEpicStatus(subtask.getEpicId());
+        this.updateEpicTimes(subtask.getEpicId());
     }
 
     @Override
@@ -152,6 +155,7 @@ public class InMemoryTaskManager implements TaskManager {
                 historyManager.remove(taskId);
             }
             updateEpicStatus(subtask.getEpicId());
+            this.updateEpicTimes(subtask.getEpicId());
         } else {
             System.out.println("Такой задачи нет");
         }
@@ -160,12 +164,13 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) { //метод update задачи
         tasks.put(task.getTaskId(), task);
-    }  //метод update задачи
+    }
 
     @Override
     public void updateSubtask(Subtask subtask) { //метод update подзадачи
         subtasks.put(subtask.getTaskId(), subtask);
         updateEpicStatus(subtask.getEpicId());
+        this.updateEpicTimes(subtask.getEpicId());
     }
 
     @Override
@@ -175,6 +180,7 @@ public class InMemoryTaskManager implements TaskManager {
         epics.put(epic.getTaskId(), epic);
         epic.setEpicSubtasks(epicSubtasks1);
         updateEpicStatus(epic.getTaskId());
+        this.updateEpicTimes(epic.getTaskId());
     }
 
     @Override
@@ -200,6 +206,28 @@ public class InMemoryTaskManager implements TaskManager {
         } else {
             epic.taskStatus = TaskStatus.IN_PROGRESS;
         }
+    }
+
+    @Override
+    public void updateEpicTimes(Integer epicId) {
+        Epic epic = epics.get(epicId);
+        LocalDateTime epicStartTime = epic.getStartTime();
+        LocalDateTime epicEndTime = epic.getEndTime();
+        Duration epicDuration = epic.getDuration();
+        for (Integer subtaskId : epic.getEpicSubtasks()) {
+            Subtask subtask = subtasks.get(subtaskId);
+            if (subtask.startTime.isBefore(epicStartTime)) {
+                epicStartTime = subtask.startTime;
+            }
+            if (subtask.getEndTime().isAfter(epicEndTime)) {
+                epicEndTime = subtask.getEndTime();
+            }
+            epicDuration = subtask.duration.plus(epicDuration);
+
+        }
+        epic.setStartTime(epicStartTime);
+        epic.setEndTime(epicEndTime);
+        epic.setDuration(epicDuration);
     }
 
     @Override

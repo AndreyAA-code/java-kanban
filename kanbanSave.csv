@@ -1,8 +1,0 @@
-id,type,name,status,description,epic,subtasks,duration,startTime,endTime
-1,TASK,taskname 1,NEW,taskdescr1,,,10,2025-05-01T22:40:31.673635,2025-05-01T22:50:31.673635
-2,TASK,taskname 2,NEW,taskdescr2,,,10,2025-05-01T22:40:31.675986,2025-05-01T22:50:31.675986
-3,EPIC,epicname1,DONE,epicdescr1,,[4, 5, 6],0,2025-05-01T22:40:31.676594,2025-05-01T22:40:31.676594
-4,SUBTASK,subtaskname1,DONE,subtaskdescr1,3,,10,2025-05-01T22:40:31.699390,2025-05-01T22:50:31.699390
-5,SUBTASK,subtaskname2,DONE,subtaskdescr2,3,,10,2025-05-01T22:40:31.700439,2025-05-01T22:50:31.700439
-6,SUBTASK,subtaskname3,DONE,subtaskdescr3,3,,10,2025-05-01T22:40:31.701030,2025-05-01T22:50:31.701030
-Счетчик заданий: 6

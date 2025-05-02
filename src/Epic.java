@@ -14,8 +14,8 @@ public class Epic extends Task {
         super(taskName, taskDescription, taskStatus);
         epicSubtasks = new ArrayList<>();
         this.duration = Duration.of(0,ChronoUnit.MINUTES);
-        this.startTime = LocalDateTime.now();
-        this.endTime = this.startTime;
+        this.startTime = LocalDateTime.of(3000, 1, 1, 0, 0);
+        this.endTime = LocalDateTime.of(1000, 1, 1, 0, 0);
     }
 
     public Epic(String taskName, String taskDescription, Integer taskId, TaskStatus taskStatus) {
@@ -25,6 +25,13 @@ public class Epic extends Task {
         this.startTime = LocalDateTime.now();
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
 
     public List<Integer> getEpicSubtasks() {
         return epicSubtasks;
@@ -32,6 +39,22 @@ public class Epic extends Task {
 
     public void setEpicSubtasks(List<Integer> epicSubtasks) {
         this.epicSubtasks = epicSubtasks;
+    }
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     @Override
@@ -44,6 +67,7 @@ public class Epic extends Task {
                 ", duration=" + duration +
                 ", startTime=" + startTime +
                 ", epicSubtasks=" + epicSubtasks +
+                ", endTime=" + endTime +
                 '}';
     }
     public String toStringFileEpic() {

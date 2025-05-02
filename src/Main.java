@@ -38,11 +38,11 @@ public class Main {
         manager.addSubtask(subtask2);
         Subtask subtask3 = new Subtask("subtaskname3", "subtaskdescr3", 3, TaskStatus.NEW, Duration.ofMinutes(10), LocalDateTime.now());
         manager.addSubtask(subtask3);
-        manager.printAllTasks();
+      //  manager.printAllTasks();
 
-        manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 4, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
-        manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 5, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
-        manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
+     //   manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 4, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
+    //    manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 5, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
+    //    manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
 
 
         manager.printAllTasks();
