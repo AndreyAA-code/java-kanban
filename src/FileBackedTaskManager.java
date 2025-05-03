@@ -72,6 +72,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+    @Override
+    public void getPrioritizedTasks() {
+        super.getPrioritizedTasks();
+    }
+
+
     private void save() {
 
         try (Writer fileWriter = new FileWriter(file.toString())) {

@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.TreeSet;
 
 public interface TaskManager {
 
@@ -42,4 +43,7 @@ public interface TaskManager {
 
     List<Task> getHistory();// получение истории просмотра объектов
 
+    void addPrioritizedTask(Task task);
+
+    void getPrioritizedTasks();
 }

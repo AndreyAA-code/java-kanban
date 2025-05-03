@@ -48,6 +48,13 @@ public class Task {
         return startTime.plus(duration);
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
 
 
     @Override
