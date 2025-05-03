@@ -253,6 +253,7 @@ public class InMemoryTaskManager implements TaskManager {
         prioritizedTasks.add(task);
     }
 
+    @Override
     public boolean intersection(Task task) {
         LocalDateTime startTime = task.getStartTime();
         LocalDateTime endTime = task.getEndTime();
@@ -269,9 +270,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void getPrioritizedTasks() {
-        for (Task task : prioritizedTasks) {
-            System.out.println(task.taskName + ":  start time " + task.getStartTime() + ", end time " + task.getEndTime());
-        }
+    public List<Task> getPrioritizedTasks() {
+        return List.copyOf(prioritizedTasks);
     }
 }

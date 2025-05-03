@@ -1,7 +1,6 @@
 import java.io.*;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.nio.file.Path;
@@ -73,7 +72,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void getPrioritizedTasks() {
+    public List<Task> getPrioritizedTasks() {
         super.getPrioritizedTasks();
     }
 
