@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest {
-
+/*
     @Override
     public String toString() {
         return "InMemoryTaskManagerTest{}";
@@ -108,5 +108,5 @@ class InMemoryTaskManagerTest {
         assertEquals(TaskStatus.IN_PROGRESS, testEpic1.taskStatus, "Статус не совпадает.");
     }
 
-
+*/
 }

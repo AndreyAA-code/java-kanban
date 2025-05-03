@@ -74,6 +74,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     @Override
     public List<Task> getPrioritizedTasks() {
         super.getPrioritizedTasks();
+        return List.copyOf(prioritizedTasks);
     }
 
 

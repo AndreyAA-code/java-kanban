@@ -271,6 +271,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getPrioritizedTasks() {
+        System.out.println(List.copyOf(prioritizedTasks));
         return List.copyOf(prioritizedTasks);
     }
 }
