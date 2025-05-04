@@ -158,7 +158,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
        return fileBackedTaskManager;
     }
 
-
     private void fromString(String value) {
 
         if (value.contains("id,type,name,status,description,epic,subtasks,duration,startTime,endTime")) {
@@ -178,10 +177,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]), Duration.ofMinutes(Long.parseLong(line[7])), LocalDateTime.parse(line[8]));
             taskId = Integer.parseInt(line[0]) - 1;
             super.addTask(task);
-        //    id,type,name,status,description,epic,subtasks,duration,startTime,endTime
-         //   1,TASK,taskname 4,NEW,taskdescr3,,,2,2025-05-01T18:45:17.761086,
-            //4,SUBTASK,subtaskname1,NEW,subtaskdescr1,3,,2,2025-05-01T21:48:52.735215,
-            //3,EPIC,epicname1,DONE,epicdescr1,,[4, 5, 6],0,2025-05-01T22:12:16.198039,
         } else if (taskType.equals(TaskType.SUBTASK)) {
             Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatus.valueOf(line[3]), Duration.ofMinutes(Long.parseLong(line[7])), LocalDateTime.parse(line[8]));
             taskId = Integer.parseInt(line[0]) - 1;

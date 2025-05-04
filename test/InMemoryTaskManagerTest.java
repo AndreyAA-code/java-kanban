@@ -20,7 +20,8 @@ class InMemoryTaskManagerTest {
 
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("taskname1", "taskdescr1", TaskStatus.NEW);
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
+                LocalDateTime.of(2025,05,1,14,25));
         taskManager.addTask(task1);
 
         List <Task> temp = taskManager.getTasks();
@@ -42,8 +43,7 @@ class InMemoryTaskManagerTest {
         Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         manager.addEpic(epic1);
 
-        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(60),
-                LocalDateTime.of(2025,05,01,15,10));
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW, Duration.ofMinutes(60), LocalDateTime.of(2025,05,01,15,10));
         manager.addSubtask(subtask1);
 
         List<Subtask> testSubtask = manager.getSubtasks();
@@ -61,7 +61,7 @@ class InMemoryTaskManagerTest {
         Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         manager.addEpic(epic1);
 
-        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(60),
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW, Duration.ofMinutes(60),
                 LocalDateTime.of(2025,05,01,15,10));
         manager.addSubtask(subtask1);
 
@@ -77,16 +77,20 @@ class InMemoryTaskManagerTest {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         manager.addEpic(epic1);
-        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW);
+
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW, Duration.ofMinutes(60),
+                LocalDateTime.of(2025,05,01,15,10));
         manager.addSubtask(subtask1);
-        Subtask subtask2 = new Subtask("subtaskname2", "subtaskdescr2", 1, TaskStatus.NEW);
+        Subtask subtask2 = new Subtask("subtaskname2", "subtaskdescr2", 1, TaskStatus.NEW, Duration.ofMinutes(30),
+                LocalDateTime.of(2025,05,01,16,20));
         manager.addSubtask(subtask2);
 
-        manager.updateSubtask(new Subtask("subtaskname2new", "subtaskdescr2new",3, 1, TaskStatus.DONE));
-        manager.updateSubtask(new Subtask("subtaskname1new", "subtaskdescr1new",2, 1, TaskStatus.DONE));
-
+        manager.updateSubtask(new Subtask("subtaskname2new", "subtaskdescr2new",2, 1, TaskStatus.DONE, Duration.ofMinutes(60),
+                LocalDateTime.of(2025,05,01,15,10)));
+        manager.updateSubtask(new Subtask("subtaskname1new", "subtaskdescr1new",3, 1, TaskStatus.DONE, Duration.ofMinutes(30),
+                LocalDateTime.of(2025,05,01,16,20)));
         List<Epic> testEpic = manager.getEpics();
         Epic testEpic1 = testEpic.get(0);
 
@@ -98,15 +102,20 @@ class InMemoryTaskManagerTest {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         manager.addEpic(epic1);
-        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW);
+
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW, Duration.ofMinutes(60),
+                LocalDateTime.of(2025,05,01,15,10));
         manager.addSubtask(subtask1);
-        Subtask subtask2 = new Subtask("subtaskname2", "subtaskdescr2", 1, TaskStatus.NEW);
+        Subtask subtask2 = new Subtask("subtaskname2", "subtaskdescr2", 1, TaskStatus.NEW, Duration.ofMinutes(30),
+                LocalDateTime.of(2025,05,01,16,20));
         manager.addSubtask(subtask2);
 
-        manager.updateSubtask(new Subtask("subtaskname2new", "subtaskdescr2new",3, 1, TaskStatus.DONE));
-        manager.updateSubtask(new Subtask("subtaskname1new", "subtaskdescr1new",2, 1, TaskStatus.IN_PROGRESS));
+        manager.updateSubtask(new Subtask("subtaskname2new", "subtaskdescr2new",2, 1, TaskStatus.DONE, Duration.ofMinutes(60),
+                LocalDateTime.of(2025,05,01,15,10)));
+        manager.updateSubtask(new Subtask("subtaskname1new", "subtaskdescr1new",3, 1, TaskStatus.IN_PROGRESS, Duration.ofMinutes(30),
+                LocalDateTime.of(2025,05,01,16,20)));
 
         List<Epic> testEpic = manager.getEpics();
         Epic testEpic1 = testEpic.get(0);
