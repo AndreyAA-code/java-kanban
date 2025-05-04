@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileBackedTaskManagerTest {
+class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
     Path path = Paths.get("test.csv");
 
@@ -61,6 +61,5 @@ class FileBackedTaskManagerTest {
         }
         assertEquals(saveLine, restoreLine, "Read != Write");
     }
-
 
 }

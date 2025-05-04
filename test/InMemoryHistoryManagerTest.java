@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-class InMemoryHistoryManagerTest {
+class InMemoryHistoryManagerTest extends TaskManagerTest {
 
     @Test
     void add() {
