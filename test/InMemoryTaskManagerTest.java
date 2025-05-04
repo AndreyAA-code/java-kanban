@@ -9,13 +9,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest {
-/*
+
     @Override
     public String toString() {
         return "InMemoryTaskManagerTest{}";
     }
 
- /*   @Test
+    @Test
     void addTask() {
 
         TaskManager taskManager = Managers.getDefault();
@@ -35,13 +35,15 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
-  /*  void addSubtask() {
+    void addSubtask() {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         manager.addEpic(epic1);
-        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 1, TaskStatus.NEW);
+
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(60),
+                LocalDateTime.of(2025,05,01,15,10));
         manager.addSubtask(subtask1);
 
         List<Subtask> testSubtask = manager.getSubtasks();
@@ -56,8 +58,12 @@ class InMemoryTaskManagerTest {
 
         TaskManager manager = Managers.getDefault();
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         manager.addEpic(epic1);
+
+        Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(60),
+                LocalDateTime.of(2025,05,01,15,10));
+        manager.addSubtask(subtask1);
 
         List<Epic> testEpic = manager.getEpics();
         Epic testEpic1 = testEpic.get(0);
@@ -108,5 +114,4 @@ class InMemoryTaskManagerTest {
         assertEquals(TaskStatus.IN_PROGRESS, testEpic1.taskStatus, "Статус не совпадает.");
     }
 
-*/
 }
