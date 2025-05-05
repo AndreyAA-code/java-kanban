@@ -86,6 +86,5 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
         } catch (IOException exception) {
             throw new SaveRestoreException("Error. can't write file");
         }
-
     }
 }
