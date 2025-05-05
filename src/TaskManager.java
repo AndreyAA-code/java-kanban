@@ -46,5 +46,6 @@ public interface TaskManager {
 
     boolean intersection(Task task); // проверка пересечения времен выполнения задач
 
-    List <Task> getPrioritizedTasks(); //получение задач отсортированных по времени старта
+    List<Task> getPrioritizedTasks();//получение задач отсортированных по времени старта
+
 }
