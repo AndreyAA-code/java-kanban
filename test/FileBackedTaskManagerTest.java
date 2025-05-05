@@ -62,4 +62,30 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
         assertEquals(saveLine, restoreLine, "Read != Write");
     }
 
+    @Test
+    void tryToReadInformationsFromNoExistsFile() throws IOException {
+
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
+        Path path = Paths.get("NoExistsFile");
+
+        assertThrows(SaveRestoreException.class, () -> {
+            fileBackedTaskManager.loadFromFile(path);
+        }, "Логика работает неправильно");
+    }
+
+    @Test
+    void tryToSaveInformationsInNoExistsFile() throws IOException {
+
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
+        Path path = Paths.get("NoExistsFile");
+        String saveLine;
+        try (Writer fileWriter = new FileWriter(path.toString())) {
+            saveLine = "id,type,name,status,description,epic,subtasks,duration,startTime,endTime";
+            fileWriter.write(saveLine);
+
+        } catch (IOException exception) {
+            throw new SaveRestoreException("Error. can't write file");
+        }
+
+    }
 }

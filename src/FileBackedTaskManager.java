@@ -12,7 +12,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public FileBackedTaskManager() {
         super();
-        this.file = file;
+      //  this.file = file;
         //loadFromFile(file);
     }
 
@@ -78,7 +78,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
 
-    private void save() {
+    public void save() {
 
         try (Writer fileWriter = new FileWriter(file.toString())) {
             fileWriter.write("id,type,name,status,description,epic,subtasks,duration,startTime,endTime\n");
@@ -106,39 +106,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
 
     }
-/*
-    private String toString(Task task) {
-        String string = task.toString();
-        StringBuilder sb = new StringBuilder(string);
-
-        sb = sb.replace(sb.indexOf("{"), sb.indexOf("{") + 1, ",");
-        sb = sb.delete(sb.indexOf("taskName="), (sb.indexOf("taskName=") + 9));
-        sb = sb.delete(sb.indexOf("taskDescription="), (sb.indexOf("taskDescription=") + 16));
-        sb = sb.delete(sb.indexOf("taskId="), (sb.indexOf("taskId=") + 7));
-        sb = sb.delete(sb.indexOf("taskStatus="), (sb.indexOf("taskStatus=") + 11));
-        sb = sb.delete(sb.indexOf("duration="), (sb.indexOf("duration=") + 9));
-        sb = sb.delete(sb.indexOf("startTime="), (sb.indexOf("startTime=") + 10));
-        while (sb.indexOf("epicId=") != -1) {
-            sb = sb.delete(sb.indexOf("epicId="), (sb.indexOf("epicId=") + 7));
-        }
-
-        while (sb.indexOf("'") != -1) {
-            sb = sb.replace(sb.indexOf("'"), sb.indexOf("'") + 1, "");
-        }
-        while (sb.indexOf("}") != -1) {
-            sb = sb.replace(sb.indexOf("}"), sb.indexOf("}") + 1, "");
-        }
-        String[] stringArray = sb.toString().split(",");
-        String sbResult = String.join(",", stringArray[3].trim(),
-                stringArray[0].toUpperCase(), stringArray[1], stringArray[4].toUpperCase().trim(),
-                stringArray[2].trim(),stringArray[5].trim(), stringArray[6].trim());
-        if (stringArray.length == 7 && stringArray[0].equals("Subtask")) {
-            sbResult = sbResult + "," + stringArray[5].trim();
-        }
-
-        return sbResult.toString();
-    }
-*/
 
     static FileBackedTaskManager loadFromFile(Path file) {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();

@@ -123,7 +123,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (tasks.get(taskId) != null) {
             tasks.remove(taskId);
             historyManager.remove(taskId);
-            prioritizedTasks.remove(taskId);
+            prioritizedTasks.removeIf(task -> task.taskId == taskId);
         } else {
             System.out.println("Такой задачи нет");
         }
