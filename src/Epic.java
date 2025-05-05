@@ -39,9 +39,11 @@ public class Epic extends Task {
 
     public void setEpicSubtasks(List<Integer> epicSubtasks) {
         this.epicSubtasks = epicSubtasks;
+
     }
     public Duration getDuration() {
         return duration;
+
     }
 
     public void setDuration(Duration duration) {
@@ -70,6 +72,7 @@ public class Epic extends Task {
                 ", endTime=" + endTime +
                 '}';
     }
+
     public String toStringFileEpic() {
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
                 taskId, TaskType.EPIC, taskName, taskStatus, taskDescription,"",epicSubtasks, duration.toMinutes(), startTime,endTime);
