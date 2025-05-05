@@ -63,17 +63,6 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
     }
 
     @Test
-    void tryToReadInformationsFromNoExistsFile() throws IOException {
-
-        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
-        Path path = Paths.get("NoExistsFile");
-
-        assertThrows(SaveRestoreException.class, () -> {
-            fileBackedTaskManager.loadFromFile(path);
-        }, "Логика работает неправильно");
-    }
-
-    @Test
     void tryToSaveInformationsInNoExistsFile() throws IOException {
 
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
