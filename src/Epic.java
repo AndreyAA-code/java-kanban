@@ -39,8 +39,8 @@ public class Epic extends Task {
 
     public void setEpicSubtasks(List<Integer> epicSubtasks) {
         this.epicSubtasks = epicSubtasks;
-
     }
+
     public Duration getDuration() {
         return duration;
     }
