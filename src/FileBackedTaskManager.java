@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.nio.file.Path;
 
@@ -10,7 +12,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public FileBackedTaskManager() {
         super();
-        this.file = file;
+        //  this.file = file;
         //loadFromFile(file);
     }
 
@@ -69,25 +71,26 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+
     private void save() {
 
         try (Writer fileWriter = new FileWriter(file.toString())) {
-            fileWriter.write("id,type,name,status,description,epic\n");
+            fileWriter.write("id,type,name,status,description,epic,subtasks,duration,startTime,endTime\n");
 
             for (Integer task : tasks.keySet()) {
-                String string = toString(tasks.get(task));
+                String string = tasks.get(task).toStringFile();
 
                 fileWriter.write(string + "\n");
             }
 
             for (Integer epic : epics.keySet()) {
-                String string = toString(epics.get(epic));
+                String string = epics.get(epic).toStringFileEpic();
 
                 fileWriter.write(string + "\n");
             }
 
             for (Integer subtask : subtasks.keySet()) {
-                String string = toString(subtasks.get(subtask));
+                String string = subtasks.get(subtask).toStringFileSubtask();
 
                 fileWriter.write(string + "\n");
             }
@@ -97,37 +100,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
 
     }
-
-    private String toString(Task task) {
-        String string = task.toString();
-        StringBuilder sb = new StringBuilder(string);
-
-        sb = sb.replace(sb.indexOf("{"), sb.indexOf("{") + 1, ",");
-        sb = sb.delete(sb.indexOf("taskName="), (sb.indexOf("taskName=") + 9));
-        sb = sb.delete(sb.indexOf("taskDescription="), (sb.indexOf("taskDescription=") + 16));
-        sb = sb.delete(sb.indexOf("taskId="), (sb.indexOf("taskId=") + 7));
-        sb = sb.delete(sb.indexOf("taskStatus="), (sb.indexOf("taskStatus=") + 11));
-        while (sb.indexOf("epicId=") != -1) {
-            sb = sb.delete(sb.indexOf("epicId="), (sb.indexOf("epicId=") + 7));
-        }
-
-        while (sb.indexOf("'") != -1) {
-            sb = sb.replace(sb.indexOf("'"), sb.indexOf("'") + 1, "");
-        }
-        while (sb.indexOf("}") != -1) {
-            sb = sb.replace(sb.indexOf("}"), sb.indexOf("}") + 1, "");
-        }
-        String[] stringArray = sb.toString().split(",");
-        String sbResult = String.join(",", stringArray[3].trim(),
-                stringArray[0].toUpperCase(), stringArray[1], stringArray[4].toUpperCase().trim(),
-                stringArray[2].trim());
-        if (stringArray.length == 6 && stringArray[0].equals("Subtask")) {
-            sbResult = sbResult + "," + stringArray[5].trim();
-        }
-
-        return sbResult.toString();
-    }
-
 
     static FileBackedTaskManager loadFromFile(Path file) {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
@@ -144,13 +116,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         } catch (IOException exception) {
             throw new SaveRestoreException("Error. can't read file");
         }
-       return fileBackedTaskManager;
+        return fileBackedTaskManager;
     }
-
 
     private void fromString(String value) {
 
-        if (value.contains("id,type,name,status,description,epic")) {
+        if (value.contains("id,type,name,status,description,epic,subtasks,duration,startTime,endTime")) {
             return;
         }
         if (value.contains("Счетчик заданий")) {
@@ -164,12 +135,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         TaskType taskType = TaskType.valueOf(line[1]);
 
         if (taskType.equals(TaskType.TASK)) {
-            Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]));
+            Task task = new Task(line[2], line[4], TaskStatus.valueOf(line[3]), Duration.ofMinutes(Long.parseLong(line[7])), LocalDateTime.parse(line[8]));
             taskId = Integer.parseInt(line[0]) - 1;
             super.addTask(task);
-
         } else if (taskType.equals(TaskType.SUBTASK)) {
-            Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatus.valueOf(line[3]));
+            Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatus.valueOf(line[3]), Duration.ofMinutes(Long.parseLong(line[7])), LocalDateTime.parse(line[8]));
             taskId = Integer.parseInt(line[0]) - 1;
             super.addSubtask(subtask);
 
@@ -183,5 +153,4 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
 
     }
-
 }
