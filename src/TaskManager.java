@@ -42,10 +42,6 @@ public interface TaskManager {
 
     List<Task> getHistory();// получение истории просмотра объектов
 
-    void addPrioritizedTask(Task task); // добавление задачи в TreeSet для хранения сортировки по времени начала задачи
-
-    boolean intersection(Task task); // проверка пересечения времен выполнения задач
-
     List<Task> getPrioritizedTasks();//получение задач отсортированных по времени старта
 
 }

@@ -48,11 +48,7 @@ public class Main {
         manager.getTaskById(1);
         manager.getTaskById(2);
         manager.getHistory();
-        System.out.println("jjj");
-        manager.deleteTaskById(2);
-        manager.getHistory();
-        System.out.println("kkkk");
-        System.out.println(manager.getPrioritizedTasks());
+
 
         // manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 4, 3, TaskStatus.DONE, Duration.ofMinutes(10),LocalDateTime.of(2025,05,01,15,10)));
         //  manager.printAllTasks();
@@ -62,11 +58,8 @@ public class Main {
         //    manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
 
 
-        //  manager.printAllTasks();
-
-        // manager.getPrioritizedTasks();
-
         //Проверка по ТЗ спринта 7
+
         // Task task3 = new Task("taskname 4", "taskdescr3", TaskStatus.NEW, Duration.ofMinutes(2), LocalDateTime.now());
         // manager.addTask(task3);
         //   Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW);

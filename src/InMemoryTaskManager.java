@@ -8,9 +8,9 @@ public class InMemoryTaskManager implements TaskManager {
     protected final HashMap<Integer, Task> tasks;
     protected final HashMap<Integer, Subtask> subtasks;
     protected final HashMap<Integer, Epic> epics;
-    public HistoryManager historyManager;
-    Comparator<Task> comparator = Comparator.comparing(task -> task.startTime);
-    protected Set<Task> prioritizedTasks = new TreeSet<>(comparator);
+    protected HistoryManager historyManager;
+
+    protected Set<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(task -> task.startTime));
 
     public InMemoryTaskManager() {
         historyManager = Managers.getDefaultHistory();
@@ -242,9 +242,8 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 
-    @Override
-    public void addPrioritizedTask(Task task) {
-        if (task.equals("null")) {
+    private void addPrioritizedTask(Task task) { //добавление задачи в TreeSet для хранения сортировки по времени начала задачи
+        if (task==null) {
             return;
         }
         if (intersection(task)) {
@@ -253,8 +252,7 @@ public class InMemoryTaskManager implements TaskManager {
         prioritizedTasks.add(task);
     }
 
-    @Override
-    public boolean intersection(Task task) {
+    private boolean intersection(Task task) { //проверка пересечения времен выполнения задач
         LocalDateTime startTime = task.getStartTime();
         LocalDateTime endTime = task.getEndTime();
         for (Task taskTime : prioritizedTasks) {

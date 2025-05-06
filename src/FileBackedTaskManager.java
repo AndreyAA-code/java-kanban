@@ -12,7 +12,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public FileBackedTaskManager() {
         super();
-      //  this.file = file;
+        //  this.file = file;
         //loadFromFile(file);
     }
 
@@ -71,14 +71,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-    @Override
-    public List<Task> getPrioritizedTasks() {
-        super.getPrioritizedTasks();
-        return List.copyOf(prioritizedTasks);
-    }
 
-
-    public void save() {
+    private void save() {
 
         try (Writer fileWriter = new FileWriter(file.toString())) {
             fileWriter.write("id,type,name,status,description,epic,subtasks,duration,startTime,endTime\n");
@@ -122,7 +116,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         } catch (IOException exception) {
             throw new SaveRestoreException("Error. can't read file");
         }
-       return fileBackedTaskManager;
+        return fileBackedTaskManager;
     }
 
     private void fromString(String value) {
