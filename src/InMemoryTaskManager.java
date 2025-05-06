@@ -243,7 +243,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private void addPrioritizedTask(Task task) { //добавление задачи в TreeSet для хранения сортировки по времени начала задачи
-        if (task==null) {
+        if (task == null) {
             return;
         }
         if (intersection(task)) {
