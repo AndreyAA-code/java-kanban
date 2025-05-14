@@ -1,13 +1,16 @@
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileBackedTaskManagerTest {
+class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
     Path path = Paths.get("test.csv");
 
@@ -16,7 +19,8 @@ class FileBackedTaskManagerTest {
 
         TaskManager taskManager = Managers.getDefaultWithSave();
 
-        Task task1 = new Task("taskname1", "taskdescr1", TaskStatus.NEW);
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
+                LocalDateTime.of(2025,05,1,14,25));
         taskManager.addTask(task1);
 
         List<Task> temp = taskManager.getTasks();
@@ -32,11 +36,15 @@ class FileBackedTaskManagerTest {
     @Test
     void tryToSaveInformationsInFile() throws IOException {
 
+        Path path = Paths.get("test.csv");
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
         TaskManager manager = FileBackedTaskManager.loadFromFile(path);
         String saveLine;
         String restoreLine;
         try (Writer fileWriter = new FileWriter(path.toString())) {
-            saveLine = "id,type,name,status,description,epic";
+            saveLine = "id,type,name,status,description,epic,subtasks,duration,startTime,endTime";
             fileWriter.write(saveLine);
 
         } catch (IOException exception) {
@@ -54,5 +62,18 @@ class FileBackedTaskManagerTest {
         assertEquals(saveLine, restoreLine, "Read != Write");
     }
 
+    @Test
+    void tryToSaveInformationsInNoExistsFile() throws IOException {
 
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
+        Path path = Paths.get("NoExistsFile");
+        String saveLine;
+        try (Writer fileWriter = new FileWriter(path.toString())) {
+            saveLine = "id,type,name,status,description,epic,subtasks,duration,startTime,endTime";
+            fileWriter.write(saveLine);
+
+        } catch (IOException exception) {
+            throw new SaveRestoreException("Error. can't write file");
+        }
+    }
 }

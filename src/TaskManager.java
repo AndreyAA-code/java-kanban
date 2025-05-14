@@ -38,6 +38,10 @@ public interface TaskManager {
 
     void updateEpicStatus(Integer epicID); //метод update статуса Эпика
 
+    void updateEpicTimes(Integer epicId);
+
     List<Task> getHistory();// получение истории просмотра объектов
+
+    List<Task> getPrioritizedTasks();//получение задач отсортированных по времени старта
 
 }
