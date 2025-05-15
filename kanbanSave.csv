@@ -1,6 +1,4 @@
 id,type,name,status,description,epic,subtasks,duration,startTime,endTime
 1,TASK,taskname 1,NEW,taskdescr1,,,15,2025-05-01T14:25,2025-05-01T14:40
 2,TASK,taskname 2,NEW,taskdescr2,,,10,2025-05-01T14:40,2025-05-01T14:50
-3,TASK,taskname 1,NEW,taskdescr1,,,15,2025-05-01T14:25,2025-05-01T14:40
-4,TASK,taskname 2,NEW,taskdescr2,,,10,2025-05-01T14:40,2025-05-01T14:50
-Счетчик заданий: 4
+Счетчик заданий: 2

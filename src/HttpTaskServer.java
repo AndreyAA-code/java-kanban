@@ -4,32 +4,20 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class HttpTaskServer {
     public static void main(String[] args) throws IOException {
-        int port = 8080;
-        Path path = Paths.get("kanbanSave.csv");
-        if (!Files.exists(path)) {
-            Files.createFile(path);
-        }
-        //создаем новый менеджер с сохранением и передаем файл
-        TaskManager manager = FileBackedTaskManager.loadFromFile(path);
-        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
-                LocalDateTime.of(2025, 05, 1, 14, 25));
-        manager.addTask(task1);
-        Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW, Duration.ofMinutes(10),
-                LocalDateTime.of(2025, 05, 01, 14, 40));
-        manager.addTask(task2);
 
+        int port = 8080;
 
         HttpServer httpServer = HttpServer.create(new InetSocketAddress(port),0);
         httpServer.createContext("/tasks", new TasksHandler());
-        httpServer.createContext("/subtasks", new SubtasksHandler());
+    //    httpServer.createContext("/subtasks", new SubtasksHandler());
+      //  httpServer.createContext("/epics", new EpicsHandler());
+     //   httpServer.createContext("/history", new HistoryHandler());
+    //    httpServer.createContext("/prioritized", new PrioritizedHandler());
+
         httpServer.start();
         System.out.println("Local Server started on port " + port);
 
@@ -38,10 +26,79 @@ public class HttpTaskServer {
 
 class TasksHandler implements HttpHandler {
 
+String basePath = "/tasks";
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         System.out.println("Received tasks request");
         String method = httpExchange.getRequestMethod();
+        String path = httpExchange.getRequestURI().getPath();
+        String param = getPath(httpExchange,basePath);
+
+        if (method.equals("GET")) {
+            if (param.isEmpty()) {
+                httpExchange.sendResponseHeaders(200, 0);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write((method + " пустой ").getBytes());
+                }
+                System.out.println(method + " пустой " + path);
+            } else {
+                httpExchange.sendResponseHeaders(200, 0);
+                Integer id = Integer.parseInt(param);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write((method + " id " + id ).getBytes());
+                }
+                System.out.println(method + " id " + path);
+            }
+            return;
+
+        } else if (method.equals("POST")) {
+            if (param.isEmpty()) {
+                httpExchange.sendResponseHeaders(200, 0);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write((method + " пустой " + path).getBytes());
+                }
+                System.out.println(method + " пустой " + path);
+            } else {
+                httpExchange.sendResponseHeaders(404, 0);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write(("ошибка").getBytes());
+                }
+                System.out.println(method + " id " + path);
+                return;
+            }
+        }  else if (method.equals("DELETE")) {
+                if (param.isEmpty()) {
+                    try (OutputStream os = httpExchange.getResponseBody()) {
+                        os.write((method + " пустой " + path).getBytes());
+                    }
+                    System.out.println(method + " пустой " + path);
+                } else {
+                    httpExchange.sendResponseHeaders(404, 0);
+                    try (OutputStream os = httpExchange.getResponseBody()) {
+                        os.write(("ошибка").getBytes());
+                    }
+                    System.out.println(method + " id " + path);
+                    return;
+                }
+        } else {
+            System.out.println("Unknown method and path " + method + " " + path);
+        }
+
+
+    }
+    public String getPath(HttpExchange httpExchange, String basePath) {
+        String param;
+        String path = httpExchange.getRequestURI().getPath();
+        if (path.contains("/basePath/")) {
+            param = path.substring(basePath.length() + 1);
+        }else{
+            param = path.substring(basePath.length());
+        }
+        return param;
+    }
+}
+
+        /* String method = httpExchange.getRequestMethod();
         switch (method) {
             case "GET":
                 handleGetRequest(httpExchange);
@@ -74,16 +131,4 @@ class TasksHandler implements HttpHandler {
     }
     void handleDeleteRequest (HttpExchange httpExchange) throws IOException {
         System.out.println("Received DELETE request");
-    }
-}
-
-class SubtasksHandler implements HttpHandler {
-    @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
-        System.out.println("Received subtasks request");
-        httpExchange.sendResponseHeaders(200, 0);
-        try (OutputStream os = httpExchange.getResponseBody()) {
-            os.write("HTTP/1.1 200 OK subtasks\r\n\r\n".getBytes());
-        }
-    }
-}
+    } */
