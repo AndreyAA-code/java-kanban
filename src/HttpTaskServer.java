@@ -50,7 +50,6 @@ class TasksHandler implements HttpHandler {
             try (OutputStream os = httpExchange.getResponseBody()) {
                 os.write((manager.getTasks()).toString().getBytes());
             }
-
         } else if (method.equals("GET") && pathArray.length == 3) {
             httpExchange.sendResponseHeaders(202, 0);
             Integer id = Integer.parseInt(pathArray[2]);
