@@ -1,4 +1,4 @@
 id,type,name,status,description,epic,subtasks,duration,startTime,endTime
-2,TASK,taskname 1,IN_PROGRESS,json post taskdescr1,,,66,2025-05-01T14:25,2025-05-01T15:31
-4,TASK,taskname 1,NEW,json post taskdescr1,,,15,2025-05-01T14:25,2025-05-01T14:40
-Счетчик заданий: 4
+1,TASK,taskname 1,NEW,json post taskdescr1,,,15,2025-05-01T14:25,2025-05-01T14:40
+2,TASK,taskname 1,NEW,json post taskdescr1,,,15,2025-05-01T14:25,2025-05-01T14:40
+Счетчик заданий: 2

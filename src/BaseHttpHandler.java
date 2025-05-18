@@ -16,7 +16,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public abstract class BaseHttpHandler implements HttpHandler {
+public class BaseHttpHandler implements HttpHandler {
+    String method;
+    String path1;
+    String[] pathArray;
+
     Path path = Paths.get("kanbanSave.csv");
     /*        if (!Files.exists(path)) {
             Files.createFile(path);   !!!!!! подумать
@@ -30,6 +34,16 @@ public abstract class BaseHttpHandler implements HttpHandler {
             .registerTypeAdapter(Duration.class, new DurationAdapter())
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
             .create();
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+    }
+    public void splitData(HttpExchange httpExchange) throws IOException { //сплит запроса
+        method = httpExchange.getRequestMethod();
+        path1 = httpExchange.getRequestURI().getPath();
+        pathArray = httpExchange.getRequestURI().getPath().split("/");
+    }
+
 }
 
 
@@ -37,10 +51,8 @@ class TasksHandler extends BaseHttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        System.out.println("Received tasks request");
-        String method = httpExchange.getRequestMethod();
-        String path1 = httpExchange.getRequestURI().getPath();
-        String[] pathArray = httpExchange.getRequestURI().getPath().split("/");
+        System.out.println("Received Task request");
+        splitData(httpExchange);
 
         if (method.equals("GET") && pathArray.length == 2) {
 
@@ -51,12 +63,21 @@ class TasksHandler extends BaseHttpHandler {
             }
 
         } else if (method.equals("GET") && pathArray.length == 3) {
-            httpExchange.sendResponseHeaders(202, 0);
-            Integer id = Integer.parseInt(pathArray[2]);
-            String json = gson.toJson(manager.getTaskById(id));
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write(json.getBytes());
+
+            try {
+                Integer id = Integer.parseInt(pathArray[2]);
+                String json = gson.toJson(manager.getTaskById(id));
+                httpExchange.sendResponseHeaders(202, 0);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write(json.getBytes());
+                }
+            } catch (NullPointerException|NumberFormatException e) {
+                httpExchange.sendResponseHeaders(404, 0);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write("Not Found".getBytes());
+                }
             }
+
 
         } else if (method.equals("POST") && pathArray.length == 2) {
             InputStream inputStream = httpExchange.getRequestBody();
@@ -96,7 +117,7 @@ class TasksHandler extends BaseHttpHandler {
     }
 
 }
-class DurationAdapter extends TypeAdapter<Duration> {
+class DurationAdapter extends TypeAdapter<Duration> { //адаптер json для поля duration
 
     @Override
     public void write(final JsonWriter jsonWriter, final Duration duration) throws IOException {
@@ -109,7 +130,7 @@ class DurationAdapter extends TypeAdapter<Duration> {
     }
 }
 
-class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
+class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> { //адаптер json для полей startTime и endTime
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     @Override
@@ -123,5 +144,5 @@ class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
     }
 }
 
-class TaskTypeToken extends TypeToken<Task> {
+class TaskTypeToken extends TypeToken<Task> { //Токен для перевода из json в Task
 }
