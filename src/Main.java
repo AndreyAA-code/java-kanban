@@ -1,10 +1,21 @@
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -21,17 +32,69 @@ public class Main {
         //создаем новый менеджер с сохранением и передаем файл
         TaskManager manager = FileBackedTaskManager.loadFromFile(path);
 
-
-        // Проверка по ТЗ спринта 8
+        Gson gson = new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .registerTypeAdapter(Duration.class, new DurationAdapter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
 
         Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
                 LocalDateTime.of(2025, 05, 1, 14, 25));
-        manager.addTask(task1);
+      //  manager.addTask(task1);
+        //   Gson gson = new GsonB();
+       String json = gson.toJson(task1);
+        System.out.println(json);
+
+        Task newTask = gson.fromJson(json, new TaskTypeToken().getType());
+        System.out.println(newTask);
+        manager.updateTask(new Task("taskname1", "taskdescr1", 1, TaskStatus.IN_PROGRESS,Duration.ofMinutes(15),
+                LocalDateTime.of(2025, 05, 1, 14, 25)));
+    }
+
+    static class DurationAdapter extends TypeAdapter<Duration> {
+      //  private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("mm");
+
+        @Override
+        public void write(final JsonWriter jsonWriter, final Duration duration) throws IOException {
+            jsonWriter.value(duration.toMinutes());
+        }
+
+        @Override
+        public Duration read(final JsonReader jsonReader) throws IOException {
+            return Duration.ofMinutes(Integer.parseInt(jsonReader.nextString()));
+        }
+    }
+    static class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
+        private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
+        @Override
+        public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
+            jsonWriter.value(localDateTime.format(dtf));
+        }
+
+        @Override
+        public LocalDateTime read(final JsonReader jsonReader) throws IOException {
+            return LocalDateTime.parse(jsonReader.nextString(), dtf);
+        }
+    }
+    static class TaskTypeToken extends TypeToken<Task> {
+        // здесь ничего не нужно реализовывать
+    }
+
+
+}
+        /*
+       Проверка по ТЗ спринта 8
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
+              LocalDateTime.of(2025, 05, 1, 14, 25));
+       manager.addTask(task1);
         Task task2 = new Task("taskname 2", "taskdescr2", TaskStatus.NEW, Duration.ofMinutes(10),
                 LocalDateTime.of(2025, 05, 01, 14, 40));
-        manager.addTask(task2);
+         manager.addTask(task2);
+         Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+
         manager.addEpic(epic1);
 
         Subtask subtask1 = new Subtask("subtaskname1", "subtaskdescr1", 3, TaskStatus.NEW, Duration.ofMinutes(60),
@@ -56,7 +119,7 @@ public class Main {
         //   manager.updateSubtask(new Subtask("subtaskname1", "subtaskdescr1", 4, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
         //    manager.updateSubtask(new Subtask("subtaskname2", "subtaskdescr2", 5, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
         //    manager.updateSubtask(new Subtask("subtaskname3", "subtaskdescr3", 6, 3, TaskStatus.DONE, Duration.ofMinutes(10), LocalDateTime.now()));
-
+*/
 
         //Проверка по ТЗ спринта 7
 
@@ -199,5 +262,4 @@ public class Main {
         //manager.updateEpic(new Epic("epicname1new", "epicdescr1new", 4, TaskStatus.NEW));
         //manager.deleteAllTasks(); //удалить все задачи
        */ //КОНЕЦ КОДА 6 СПРИНТА
-    }
-}
+

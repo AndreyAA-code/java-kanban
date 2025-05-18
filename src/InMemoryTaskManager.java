@@ -168,7 +168,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) { //метод update задачи
         tasks.put(task.getTaskId(), task);
-        prioritizedTasks.remove(taskId);
+        prioritizedTasks.remove(task);
         prioritizedTasks.add(task);
     }
 
