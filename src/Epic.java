@@ -6,16 +6,16 @@ import java.util.List;
 
 public class Epic extends Task {
     private List<Integer> epicSubtasks;
-    private Duration duration;
-    private LocalDateTime startTime;
+   // private Duration duration;
+   // private LocalDateTime startTime;
     private LocalDateTime endTime;
 
     public Epic(String taskName, String taskDescription, TaskStatus taskStatus) {
         super(taskName, taskDescription, taskStatus);
         epicSubtasks = new ArrayList<>();
-        this.duration = Duration.of(0,ChronoUnit.MINUTES);
-        this.startTime = LocalDateTime.of(3000, 1, 1, 0, 0);
-        this.endTime = LocalDateTime.of(1000, 1, 1, 0, 0);
+        duration = Duration.of(0,ChronoUnit.MINUTES);
+        startTime = LocalDateTime.of(3000, 1, 1, 0, 0);
+        endTime = LocalDateTime.of(3000, 1, 1, 0, 0);
     }
 
     public Epic(String taskName, String taskDescription, Integer taskId, TaskStatus taskStatus) {

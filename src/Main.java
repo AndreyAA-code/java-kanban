@@ -39,13 +39,16 @@ public class Main {
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
 
+
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        //manager.addEpic(epic1);
       //  Task task1 = new Task("taskname 1", "taskdescr1", d, Duration.ofMinutes(15),
        //         LocalDateTime.of(2025, 05, 1, 14, 25));
       //  manager.addTask(new Task("taskname 1", "taskdescr1", d, Duration.ofMinutes(15),
           //      LocalDateTime.of(2025, 05, 1, 14, 25)));
         //   Gson gson = new GsonB();
-   //    String json = gson.toJson(task1);
-   //     System.out.println(json);
+      // String json = gson.toJson(epic1);
+    //    System.out.println(json);
 
    //     Task newTask = gson.fromJson(json, new TaskTypeToken().getType());
    //     System.out.println(newTask);
@@ -53,11 +56,15 @@ public class Main {
        // manager.updateTask(new Task("taskname1", "taskdescr1", 1, idd,Duration.ofMinutes(15),
          //       LocalDateTime.of(2025, 05, 1, 14, 25)));
         try {
-            String json = gson.toJson(manager.getTaskById(Integer.parseInt("1")));
+            String json = gson.toJson(epic1);
             System.out.println(json);
+            Epic newEpic = gson.fromJson(json, new EpicTypeToken().getType());
+            manager.addEpic(newEpic);
+            System.out.println(newEpic);
         } catch (NullPointerException| NumberFormatException exception) {
             System.out.println("No task found");
         }
+
 
     }
 
