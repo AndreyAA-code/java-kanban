@@ -80,3 +80,6 @@ class TaskTypeToken extends TypeToken<Task> { //Токен для перевод
 
 class EpicTypeToken extends TypeToken<Epic> { //Токен для перевода из json в Epic
 }
+
+class SubtaskTypeToken extends TypeToken<Subtask> { //Токен для перевода из json в Epic
+}

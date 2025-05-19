@@ -40,7 +40,7 @@ public class Main {
                 .create();
 
 
-        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+  //      Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
         //manager.addEpic(epic1);
       //  Task task1 = new Task("taskname 1", "taskdescr1", d, Duration.ofMinutes(15),
        //         LocalDateTime.of(2025, 05, 1, 14, 25));
@@ -55,7 +55,7 @@ public class Main {
       //  TaskStatus idd = TaskStatus.NEWd;
        // manager.updateTask(new Task("taskname1", "taskdescr1", 1, idd,Duration.ofMinutes(15),
          //       LocalDateTime.of(2025, 05, 1, 14, 25)));
-        try {
+    /*    try {
             String json = gson.toJson(epic1);
             System.out.println(json);
             Epic newEpic = gson.fromJson(json, new EpicTypeToken().getType());
@@ -63,7 +63,7 @@ public class Main {
             System.out.println(newEpic);
         } catch (NullPointerException| NumberFormatException exception) {
             System.out.println("No task found");
-        }
+        } */
 
 
     }
