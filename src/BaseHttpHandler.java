@@ -8,8 +8,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InvalidObjectException;
 import java.io.OutputStream;
-import java.nio.file.Files;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -18,15 +19,15 @@ import java.time.format.DateTimeFormatter;
 
 public class BaseHttpHandler implements HttpHandler {
     String method;
-    String path1;
+    String path;
     String[] pathArray;
 
-    Path path = Paths.get("kanbanSave.csv");
-    /*        if (!Files.exists(path)) {
-            Files.createFile(path);   !!!!!! подумать
+    Path pathBackupFile = Paths.get("kanbanSave.csv");
+    /*        if (!Files.exists(pathBackupFile)) {
+            Files.createFile(pathBackupFile);   !!!!!! подумать
         } */
     //создаем новый менеджер с сохранением и передаем файл
-    TaskManager manager = FileBackedTaskManager.loadFromFile(path);
+    TaskManager manager = FileBackedTaskManager.loadFromFile(pathBackupFile);
 
     Gson gson = new GsonBuilder()
             .serializeNulls()
@@ -40,12 +41,11 @@ public class BaseHttpHandler implements HttpHandler {
     }
     public void splitData(HttpExchange httpExchange) throws IOException { //сплит запроса
         method = httpExchange.getRequestMethod();
-        path1 = httpExchange.getRequestURI().getPath();
+        path = httpExchange.getRequestURI().getPath();
         pathArray = httpExchange.getRequestURI().getPath().split("/");
     }
 
 }
-
 
 class TasksHandler extends BaseHttpHandler {
     @Override
@@ -78,24 +78,19 @@ class TasksHandler extends BaseHttpHandler {
                 }
             }
 
-
         } else if (method.equals("POST") && pathArray.length == 2) {
-            InputStream inputStream = httpExchange.getRequestBody();
-            String body = new String(inputStream.readAllBytes());
-            Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
-            manager.addTask(newTask);
-
-            httpExchange.sendResponseHeaders(201, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Задача размещена".getBytes());
-
-            }
+               InputStream inputStream = httpExchange.getRequestBody();
+               String body = new String(inputStream.readAllBytes());
+               Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
+               manager.addTask(newTask);
+               httpExchange.sendResponseHeaders(201, 0);
+               try (OutputStream os = httpExchange.getResponseBody()) {
+                   os.write("Задача размещена".getBytes());
+               }
 
         } else if (method.equals("POST") && pathArray.length == 3) {
-
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
-
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
             manager.updateTask(newTask);
             httpExchange.sendResponseHeaders(201, 0);
@@ -111,7 +106,7 @@ class TasksHandler extends BaseHttpHandler {
             }
 
         } else {
-            System.out.println("Unknown method and path " + method + " " + path1);
+            System.out.println("Unknown method and path");
         }
 
     }

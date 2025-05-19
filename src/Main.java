@@ -24,7 +24,7 @@ public class Main {
         //Проверка по ТЗ спринта 7
 
         // создаем файл для сохранения всех видов задач;
-        // Path path = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
+        // Path pathBackupFile = Paths.get("/Users/andrey/IdeaProjects/java-kanban/kanbanSave.csv");
         Path path = Paths.get("kanbanSave.csv");
         if (!Files.exists(path)) {
             Files.createFile(path);
@@ -39,19 +39,21 @@ public class Main {
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
 
-    //    Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
-      //          LocalDateTime.of(2025, 05, 1, 14, 25));
-      //  manager.addTask(task1);
+      //  Task task1 = new Task("taskname 1", "taskdescr1", d, Duration.ofMinutes(15),
+       //         LocalDateTime.of(2025, 05, 1, 14, 25));
+      //  manager.addTask(new Task("taskname 1", "taskdescr1", d, Duration.ofMinutes(15),
+          //      LocalDateTime.of(2025, 05, 1, 14, 25)));
         //   Gson gson = new GsonB();
    //    String json = gson.toJson(task1);
    //     System.out.println(json);
 
    //     Task newTask = gson.fromJson(json, new TaskTypeToken().getType());
    //     System.out.println(newTask);
-  //      manager.updateTask(new Task("taskname1", "taskdescr1", 1, TaskStatus.IN_PROGRESS,Duration.ofMinutes(15),
+      //  TaskStatus idd = TaskStatus.NEWd;
+       // manager.updateTask(new Task("taskname1", "taskdescr1", 1, idd,Duration.ofMinutes(15),
          //       LocalDateTime.of(2025, 05, 1, 14, 25)));
         try {
-            String json = gson.toJson(manager.getTaskById(Integer.parseInt("p")));
+            String json = gson.toJson(manager.getTaskById(Integer.parseInt("1")));
             System.out.println(json);
         } catch (NullPointerException| NumberFormatException exception) {
             System.out.println("No task found");
