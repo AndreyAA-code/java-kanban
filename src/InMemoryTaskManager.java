@@ -29,8 +29,6 @@ public class InMemoryTaskManager implements TaskManager {
         task.setTaskId(taskId);
         tasks.put(taskId, task);
         addPrioritizedTask(task);
-        System.out.println(epics); //удалить
-        System.out.println(tasks);//удалить
     }
 
     @Override

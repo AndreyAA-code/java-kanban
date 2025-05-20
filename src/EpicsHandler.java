@@ -47,7 +47,7 @@ class EpicsHandler extends BaseHttpHandler {
 
             httpExchange.sendResponseHeaders(201, 0);
             try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Задача размещена".getBytes());
+                os.write("Эпик размещен".getBytes());
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3) {

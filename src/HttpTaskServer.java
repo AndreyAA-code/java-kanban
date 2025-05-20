@@ -23,8 +23,8 @@ public class HttpTaskServer {
         httpServer.createContext("/tasks", new TasksHandler(manager));
         httpServer.createContext("/subtasks", new SubtasksHandler(manager));
         httpServer.createContext("/epics", new EpicsHandler(manager));
-     //   httpServer.createContext("/history", new HistoryHandler());
-    //    httpServer.createContext("/prioritized", new PrioritizedHandler());
+        httpServer.createContext("/history", new HistoryHandler(manager));
+        httpServer.createContext("/prioritized", new PrioritizedHandler(manager));
 
 
 
