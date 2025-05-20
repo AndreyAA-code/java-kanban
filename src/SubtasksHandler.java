@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-class SubtasksHandler {//extends BaseHttpHandler {
-  /*  @Override
+class SubtasksHandler extends BaseHttpHandler {
+    public SubtasksHandler(TaskManager manager) {
+        super(manager);
+    }
+
+    @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+
 
         System.out.println("Received Subtask request");
         splitData(httpExchange);
@@ -65,5 +70,5 @@ class SubtasksHandler {//extends BaseHttpHandler {
         }
 
     }
-*/
+
 }
