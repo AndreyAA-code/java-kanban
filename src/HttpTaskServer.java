@@ -18,7 +18,7 @@ public class HttpTaskServer {
             Files.createFile(pathBackupFile);
         }
         //создаем новый менеджер с сохранением и передаем файл
-        TaskManager manager = FileBackedTaskManager.loadFromFile(pathBackupFile);
+       final TaskManager manager = FileBackedTaskManager.loadFromFile(pathBackupFile);
 BaseHttpHandler baseHttpHandler = new BaseHttpHandler(manager);
             EpicsHandler epicsHandler = new EpicsHandler(manager);
 
