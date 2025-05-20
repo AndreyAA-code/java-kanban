@@ -21,13 +21,11 @@ public class BaseHttpHandler implements HttpHandler {
     String method;
     String path;
     String[] pathArray;
+    TaskManager manager;
 
-    Path pathBackupFile = Paths.get("kanbanSave.csv");
-    /*        if (!Files.exists(pathBackupFile)) {
-            Files.createFile(pathBackupFile);   !!!!!! подумать
-        } */
-    //создаем новый менеджер с сохранением и передаем файл
-    TaskManager manager = FileBackedTaskManager.loadFromFile(pathBackupFile);
+    public BaseHttpHandler(TaskManager manager) {
+    this.manager = manager;
+    }
 
     Gson gson = new GsonBuilder()
             .serializeNulls()

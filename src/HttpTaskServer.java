@@ -1,19 +1,34 @@
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HttpTaskServer {
     public static void main(String[] args) throws IOException {
 
         int port = 8080;
 
+
         HttpServer httpServer = HttpServer.create(new InetSocketAddress(port),0);
 
-        httpServer.createContext("/tasks", new TasksHandler());
-        httpServer.createContext("/subtasks", new SubtasksHandler());
-        httpServer.createContext("/epics", new EpicsHandler());
+        Path pathBackupFile = Paths.get("kanbanSave.csv");
+            if (!Files.exists(pathBackupFile)) {
+            Files.createFile(pathBackupFile);
+        }
+        //создаем новый менеджер с сохранением и передаем файл
+        TaskManager manager = FileBackedTaskManager.loadFromFile(pathBackupFile);
+BaseHttpHandler baseHttpHandler = new BaseHttpHandler(manager);
+            EpicsHandler epicsHandler = new EpicsHandler(manager);
+
+        httpServer.createContext("/tasks", new TasksHandler(manager));
+      //  httpServer.createContext("/subtasks", new SubtasksHandler());
+        httpServer.createContext("/epics", epicsHandler);
      //   httpServer.createContext("/history", new HistoryHandler());
     //    httpServer.createContext("/prioritized", new PrioritizedHandler());
+
+
 
         httpServer.start();
         System.out.println("Local Server started on port " + port);

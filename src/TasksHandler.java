@@ -5,6 +5,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 class TasksHandler extends BaseHttpHandler {
+
+    public TasksHandler(TaskManager manager) {
+        super(manager);
+    }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 

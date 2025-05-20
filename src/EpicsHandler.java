@@ -5,9 +5,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 class EpicsHandler extends BaseHttpHandler {
+
+
+    public EpicsHandler(TaskManager manager) {
+        super(manager);
+    }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-
         System.out.println("Received Epic request");
         splitData(httpExchange);
 
@@ -34,10 +39,12 @@ class EpicsHandler extends BaseHttpHandler {
             }
 
         } else if (method.equals("POST") && pathArray.length == 2) {
+            System.out.println(manager);
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Epic newEpic = gson.fromJson(body, new EpicTypeToken().getType());
             manager.addEpic(newEpic);
+
             httpExchange.sendResponseHeaders(201, 0);
             try (OutputStream os = httpExchange.getResponseBody()) {
                 os.write("Задача размещена".getBytes());

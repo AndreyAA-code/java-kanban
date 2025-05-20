@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-
+/*
         //Проверка по ТЗ спринта 7
 
         // создаем файл для сохранения всех видов задач;
@@ -40,12 +40,12 @@ public class Main {
                 .create();
 
 
-  //      Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
-        //manager.addEpic(epic1);
-      //  Task task1 = new Task("taskname 1", "taskdescr1", d, Duration.ofMinutes(15),
-       //         LocalDateTime.of(2025, 05, 1, 14, 25));
-      //  manager.addTask(new Task("taskname 1", "taskdescr1", d, Duration.ofMinutes(15),
-          //      LocalDateTime.of(2025, 05, 1, 14, 25)));
+        Epic epic1 = new Epic("epicname1", "epicdescr1", TaskStatus.NEW);
+        manager.addEpic(epic1);
+        Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
+                LocalDateTime.of(2025, 05, 1, 14, 25));
+        manager.addTask(task1);
+        //System.out.println(epics);
         //   Gson gson = new GsonB();
       // String json = gson.toJson(epic1);
     //    System.out.println(json);
@@ -63,11 +63,11 @@ public class Main {
             System.out.println(newEpic);
         } catch (NullPointerException| NumberFormatException exception) {
             System.out.println("No task found");
-        } */
-
-
+        }
+     //   System.out.println(epics);
+*/
     }
-
+/*
     static class DurationAdapter extends TypeAdapter<Duration> {
       //  private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("mm");
 
@@ -98,7 +98,7 @@ public class Main {
         // здесь ничего не нужно реализовывать
     }
 
-
+*/
 }
         /*
        Проверка по ТЗ спринта 8
