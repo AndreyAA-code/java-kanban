@@ -52,10 +52,18 @@ class TasksHandler extends BaseHttpHandler {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
-            manager.updateTask(newTask);
-            httpExchange.sendResponseHeaders(201, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Задача изменена".getBytes());
+
+            if (manager.IfTaskExists(newTask.taskId)) {
+               manager.updateTask(newTask);
+               httpExchange.sendResponseHeaders(201, 0);
+               try (OutputStream os = httpExchange.getResponseBody()) {
+                   os.write("Задача изменена".getBytes());
+               }
+           } else {
+                httpExchange.sendResponseHeaders(406, 0);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write("Такой задачи нет".getBytes());
+                }
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3) {

@@ -275,4 +275,21 @@ public class InMemoryTaskManager implements TaskManager {
         System.out.println(List.copyOf(prioritizedTasks));
         return List.copyOf(prioritizedTasks);
     }
+
+    @Override
+    public boolean IfTaskExists(Integer taskId) {
+        if(tasks.containsKey(taskId)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean IfSubtaskExists(Integer taskId) {
+        if(subtasks.containsKey(taskId)) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -52,10 +52,18 @@ class SubtasksHandler extends BaseHttpHandler {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Subtask newSubtask = gson.fromJson(body, new SubtaskTypeToken().getType());
+
+            if (manager.IfSubtaskExists(newSubtask.taskId)) {
             manager.updateSubtask(newSubtask);
             httpExchange.sendResponseHeaders(201, 0);
             try (OutputStream os = httpExchange.getResponseBody()) {
                 os.write("Подзадача изменена".getBytes());
+            }
+            } else {
+                httpExchange.sendResponseHeaders(406, 0);
+                try (OutputStream os = httpExchange.getResponseBody()) {
+                    os.write("Такой подзадачи нет".getBytes());
+                }
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3) {

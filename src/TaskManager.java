@@ -44,4 +44,8 @@ public interface TaskManager {
 
     List<Task> getPrioritizedTasks();//получение задач отсортированных по времени старта
 
+    boolean IfTaskExists(Integer taskId); //проверка наличия таска для его update
+
+    boolean IfSubtaskExists(Integer taskId); //проверка наличия сабтаска для его update
+
 }
