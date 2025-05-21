@@ -12,19 +12,15 @@ class HistoryHandler extends BaseHttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-
         System.out.println("Received get history request");
         splitData(httpExchange);
 
         if (method.equals("GET") && pathArray.length == 2) {
-            httpExchange.sendResponseHeaders(200, 0);
             String json = gson.toJson(manager.getPrioritizedTasks());
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write(json.getBytes());
-            }
+            writeResponse(httpExchange, json, 200);
 
         } else {
-            System.out.println("Unknown method and path");
+            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
         }
 
     }
