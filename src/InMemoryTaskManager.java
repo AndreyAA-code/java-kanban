@@ -26,8 +26,11 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Task task) {  //метод добавления задачи
         taskIdCount();
+        System.out.println("Adding new task: " + task);
         task.setTaskId(taskId);
+        System.out.println("Task ID: " + taskId);
         tasks.put(taskId, task);
+        System.out.println(tasks);
         addPrioritizedTask(task);
     }
 

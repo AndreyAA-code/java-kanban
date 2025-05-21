@@ -28,7 +28,7 @@ class TasksHandler extends BaseHttpHandler {
                 writeResponse(httpExchange, "Not Found", 404);
             }
 
-        } else if (method.equals("POST") && pathArray.length == 2 && pathArray[1].equals("tasksgg")) {
+        } else if (method.equals("POST") && pathArray.length == 2 && pathArray[1].equals("tasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
@@ -46,7 +46,7 @@ class TasksHandler extends BaseHttpHandler {
                 writeResponse(httpExchange, "Not Acceptable", 406);
             }
 
-        } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("tasksgg")) {
+        } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
            try{
                int id = Integer.parseInt(pathArray[2]);
                if (manager.IfTaskExists(id)) {
