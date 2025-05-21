@@ -75,6 +75,10 @@ class TasksHandler extends BaseHttpHandler {
 
         } else {
             System.out.println("Unknown method and path");
+            httpExchange.sendResponseHeaders(404, 0);
+            try (OutputStream os = httpExchange.getResponseBody()) {
+                os.write("Неизвестный метод или ошибка в url".getBytes());
+            }
         }
 
     }

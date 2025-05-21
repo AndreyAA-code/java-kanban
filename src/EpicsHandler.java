@@ -42,7 +42,9 @@ class EpicsHandler extends BaseHttpHandler {
             System.out.println(manager);
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
-            Epic newEpic = gson.fromJson(body, new EpicTypeToken().getType());
+         //   Epic newEpic = gson.fromJson(body, new EpicTypeToken().getType());
+            Epic deser = gson.fromJson(body,Epic.class);
+            Epic newEpic = new Epic(deser.taskName, deser.taskDescription, TaskStatus.NEW);
             manager.addEpic(newEpic);
 
             httpExchange.sendResponseHeaders(201, 0);
@@ -59,6 +61,10 @@ class EpicsHandler extends BaseHttpHandler {
 
         } else {
             System.out.println("Unknown method and path");
+            httpExchange.sendResponseHeaders(404, 0);
+            try (OutputStream os = httpExchange.getResponseBody()) {
+                os.write("Неизвестный метод или ошибка в url".getBytes());
+            }
         }
     }
 }
