@@ -15,8 +15,8 @@ class PrioritizedHandler extends BaseHttpHandler {
         System.out.println("Received get prioritised request");
         splitData(httpExchange);
 
-        if (method.equals("GET") && pathArray.length == 2) {
-            String json = gson.toJson(manager.getHistory());
+        if (method.equals("GET") && pathArray.length == 2 && pathArray[1].equals("prioritized")) {
+            String json = gson.toJson(manager.getPrioritizedTasks());
             writeResponse(httpExchange, json, 200);
 
         } else {

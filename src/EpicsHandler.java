@@ -14,11 +14,11 @@ class EpicsHandler extends BaseHttpHandler {
         System.out.println("Received Epic request");
         splitData(httpExchange);
 
-        if (method.equals("GET") && pathArray.length == 2) {
+        if (method.equals("GET") && pathArray.length == 2 && pathArray[1].equals("epics")) {
             String json = gson.toJson(manager.getEpics());
             writeResponse(httpExchange, json, 200);
 
-        } else if (method.equals("GET") && pathArray.length == 3) {
+        } else if (method.equals("GET") && pathArray.length == 3 && pathArray[1].equals("epics")) {
 
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
@@ -29,7 +29,7 @@ class EpicsHandler extends BaseHttpHandler {
                 writeResponse(httpExchange, "Not Found", 404);
             }
 
-        } else if (method.equals("POST") && pathArray.length == 2) {
+        } else if (method.equals("POST") && pathArray.length == 2 && pathArray[1].equals("epics")) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Epic deserialisation = gson.fromJson(body,Epic.class);
@@ -37,7 +37,7 @@ class EpicsHandler extends BaseHttpHandler {
             manager.addEpic(newEpic);
             writeResponse(httpExchange, "Эпик размещен", 201);
 
-        } else if (method.equals("DELETE") && pathArray.length == 3) {
+        } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("epics")) {
             manager.deleteEpicById(Integer.parseInt(pathArray[2]));
             writeResponse(httpExchange, "Эпик удален", 200);
 

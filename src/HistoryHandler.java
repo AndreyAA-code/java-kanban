@@ -15,8 +15,9 @@ class HistoryHandler extends BaseHttpHandler {
         System.out.println("Received get history request");
         splitData(httpExchange);
 
-        if (method.equals("GET") && pathArray.length == 2) {
-            String json = gson.toJson(manager.getPrioritizedTasks());
+        if (method.equals("GET") && pathArray.length == 2 && pathArray[1].equals("history")) {
+            String json = gson.toJson(manager.getHistory());
+            System.out.println(json);
             writeResponse(httpExchange, json, 200);
 
         } else {

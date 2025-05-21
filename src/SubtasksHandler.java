@@ -13,11 +13,11 @@ class SubtasksHandler extends BaseHttpHandler {
         System.out.println("Received Subtask request");
         splitData(httpExchange);
 
-        if (method.equals("GET") && pathArray.length == 2) {
+        if (method.equals("GET") && pathArray.length == 2 &&pathArray[1].equals("subtasks")) {
             String json = gson.toJson(manager.getSubtasks());
             writeResponse(httpExchange, json, 200);
 
-        } else if (method.equals("GET") && pathArray.length == 3) {
+        } else if (method.equals("GET") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getSubtaskByID(id));
@@ -27,14 +27,14 @@ class SubtasksHandler extends BaseHttpHandler {
                 writeResponse(httpExchange, "Not Found", 404);
             }
 
-        } else if (method.equals("POST") && pathArray.length == 2) {
+        } else if (method.equals("POST") && pathArray.length == 2 && pathArray[1].equals("subtasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Subtask newSubtask = gson.fromJson(body, new SubtaskTypeToken().getType());
             manager.addSubtask(newSubtask);
             writeResponse(httpExchange, "Подзадача размещена", 201);
 
-        } else if (method.equals("POST") && pathArray.length == 3) {
+        } else if (method.equals("POST") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Subtask newSubtask = gson.fromJson(body, new SubtaskTypeToken().getType());
@@ -46,7 +46,7 @@ class SubtasksHandler extends BaseHttpHandler {
                 writeResponse(httpExchange, "Такой подзадачи нет", 406);
             }
 
-        } else if (method.equals("DELETE") && pathArray.length == 3) {
+        } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
             manager.deleteSubtaskById(Integer.parseInt(pathArray[2]));
                 writeResponse(httpExchange, "Задача удалена", 200);
 

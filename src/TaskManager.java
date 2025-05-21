@@ -24,7 +24,7 @@ public interface TaskManager {
 
     Epic getEpicById(Integer taskId); //получение эпика по идентификатору
 
-    void deleteTaskById(Integer taskId); //удаление задачи по идентификатору
+    Task deleteTaskById(Integer taskId); //удаление задачи по идентификатору
 
     void deleteEpicById(Integer taskId); //удаление эпика по идентификатору
 

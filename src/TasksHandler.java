@@ -14,11 +14,11 @@ class TasksHandler extends BaseHttpHandler {
         System.out.println("Received Task request");
         splitData(httpExchange);
 
-        if (method.equals("GET") && pathArray.length == 2) {
+        if (method.equals("GET") && pathArray.length == 2 && pathArray[1].equals("tasks")) {
             String json = gson.toJson(manager.getTasks());
             writeResponse(httpExchange, json, 200);
 
-        } else if (method.equals("GET") && pathArray.length == 3) {
+        } else if (method.equals("GET") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getTaskById(id));
@@ -28,14 +28,14 @@ class TasksHandler extends BaseHttpHandler {
                 writeResponse(httpExchange, "Not Found", 404);
             }
 
-        } else if (method.equals("POST") && pathArray.length == 2) {
+        } else if (method.equals("POST") && pathArray.length == 2 && pathArray[1].equals("tasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
             manager.addTask(newTask);
             writeResponse(httpExchange, "Задача размещена", 201);
 
-        } else if (method.equals("POST") && pathArray.length == 3) {
+        } else if (method.equals("POST") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
@@ -46,9 +46,14 @@ class TasksHandler extends BaseHttpHandler {
                 writeResponse(httpExchange, "Такой задачи нет", 406);
             }
 
-        } else if (method.equals("DELETE") && pathArray.length == 3) {
-            manager.deleteTaskById(Integer.parseInt(pathArray[2]));
+        } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
+           try{
+               manager.deleteTaskById(Integer.parseInt(pathArray[2]));
             writeResponse(httpExchange, "Задача удалена", 200);
+
+           } catch (NullPointerException | NumberFormatException e) {
+               writeResponse(httpExchange, "Not Found", 404);
+           }
 
         } else {
             writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);

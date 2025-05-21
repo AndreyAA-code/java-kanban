@@ -122,7 +122,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
+    public Task deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
         if (tasks.get(taskId) != null) {
             tasks.remove(taskId);
             historyManager.remove(taskId);
@@ -130,6 +130,7 @@ public class InMemoryTaskManager implements TaskManager {
         } else {
             System.out.println("Такой задачи нет");
         }
+        return tasks.get(taskId);
     }
 
     @Override

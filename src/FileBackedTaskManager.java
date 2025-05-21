@@ -2,7 +2,6 @@ import java.io.*;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.*;
 import java.nio.file.Path;
 
 
@@ -60,9 +59,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
+    public Task deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
         super.deleteTaskById(taskId);
         save();
+        return tasks.get(taskId);
     }
 
     @Override
