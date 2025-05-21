@@ -22,7 +22,7 @@ class TasksHandler extends BaseHttpHandler {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getTaskById(id));
-                writeResponse(httpExchange, json, 202);
+                writeResponse(httpExchange, json, 200);
 
             } catch (NullPointerException | NumberFormatException e) {
                 writeResponse(httpExchange, "Not Found", 404);

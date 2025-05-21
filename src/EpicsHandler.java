@@ -23,7 +23,7 @@ class EpicsHandler extends BaseHttpHandler {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getEpicById(id));
-                writeResponse(httpExchange, json, 202);
+                writeResponse(httpExchange, json, 200);
 
             } catch (NullPointerException | NumberFormatException e) {
                 writeResponse(httpExchange, "Not Found", 404);

@@ -21,7 +21,7 @@ class SubtasksHandler extends BaseHttpHandler {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getSubtaskByID(id));
-                writeResponse(httpExchange, json, 202);
+                writeResponse(httpExchange, json, 200);
 
             } catch (NullPointerException | NumberFormatException e) {
                 writeResponse(httpExchange, "Not Found", 404);
@@ -32,7 +32,7 @@ class SubtasksHandler extends BaseHttpHandler {
             String body = new String(inputStream.readAllBytes());
             Subtask newSubtask = gson.fromJson(body, new SubtaskTypeToken().getType());
             manager.addSubtask(newSubtask);
-            writeResponse(httpExchange, "Подзадача размещена", 200);
+            writeResponse(httpExchange, "Подзадача размещена", 201);
 
         } else if (method.equals("POST") && pathArray.length == 3) {
             InputStream inputStream = httpExchange.getRequestBody();
