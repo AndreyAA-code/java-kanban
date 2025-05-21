@@ -22,6 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class HttpServerTest {
     final TaskManager manager = new InMemoryTaskManager();
+    Gson gson = new GsonBuilder()
+            .serializeNulls()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Duration.class, new DurationAdapter())
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
 
     @BeforeEach
     public void SetUpServer() throws IOException, InterruptedException {
@@ -44,12 +50,7 @@ public class HttpServerTest {
                 TaskStatus.NEW, Duration.ofMinutes(5), LocalDateTime.now());
        // TaskManager manager = new InMemoryTaskManager();
         // конвертируем её в JSON
-        Gson gson = new GsonBuilder()
-                .serializeNulls()
-                .setPrettyPrinting()
-                .registerTypeAdapter(Duration.class, new DurationAdapter())
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-                .create();
+
         String taskJson = gson.toJson(task);
 
         // создаём HTTP-клиент и запрос
