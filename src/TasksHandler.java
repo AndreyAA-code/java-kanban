@@ -33,7 +33,7 @@ class TasksHandler extends BaseHttpHandler {
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
             manager.addTask(newTask);
-            writeResponse(httpExchange, "Задача размещена", 201);
+            writeResponse(httpExchange, "Task created", 201);
 
         } else if (method.equals("POST") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
@@ -41,22 +41,27 @@ class TasksHandler extends BaseHttpHandler {
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
             if (manager.IfTaskExists(newTask.taskId)) {
                 manager.updateTask(newTask);
-                writeResponse(httpExchange, "Задача изменена", 201);
+                writeResponse(httpExchange, "Task changed", 201);
             } else {
-                writeResponse(httpExchange, "Такой задачи нет", 406);
+                writeResponse(httpExchange, "No such task", 406);
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
            try{
-               manager.deleteTaskById(Integer.parseInt(pathArray[2]));
-            writeResponse(httpExchange, "Задача удалена", 200);
+               int id = Integer.parseInt(pathArray[2]);
+               if (manager.IfTaskExists(id)) {
+                   manager.deleteTaskById(id);
+                   writeResponse(httpExchange, "Task deleted", 200);
+               } else {
+                   writeResponse(httpExchange, "No such task", 406);
+               }
 
            } catch (NullPointerException | NumberFormatException e) {
                writeResponse(httpExchange, "Not Found", 404);
            }
 
         } else {
-            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
+            writeResponse(httpExchange, "Unknown method or incorrect url", 404);
         }
     }
 }

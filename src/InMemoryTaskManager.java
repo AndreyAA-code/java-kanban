@@ -293,4 +293,12 @@ public class InMemoryTaskManager implements TaskManager {
         return false;
     }
 
+    @Override
+    public boolean IfEpicExists(Integer taskId) {
+        if(epics.containsKey(taskId)) {
+            return true;
+        }
+        return false;
+    }
+
 }

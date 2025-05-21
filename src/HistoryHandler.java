@@ -1,8 +1,5 @@
 import com.sun.net.httpserver.HttpExchange;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 class HistoryHandler extends BaseHttpHandler {
     public HistoryHandler(TaskManager manager) {
@@ -21,7 +18,7 @@ class HistoryHandler extends BaseHttpHandler {
             writeResponse(httpExchange, json, 200);
 
         } else {
-            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
+            writeResponse(httpExchange, "Unknown method or incorrect url", 404);
         }
 
     }

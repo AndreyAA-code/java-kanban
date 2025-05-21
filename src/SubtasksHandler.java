@@ -32,7 +32,7 @@ class SubtasksHandler extends BaseHttpHandler {
             String body = new String(inputStream.readAllBytes());
             Subtask newSubtask = gson.fromJson(body, new SubtaskTypeToken().getType());
             manager.addSubtask(newSubtask);
-            writeResponse(httpExchange, "Подзадача размещена", 201);
+            writeResponse(httpExchange, "Subtask created", 201);
 
         } else if (method.equals("POST") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
@@ -41,17 +41,26 @@ class SubtasksHandler extends BaseHttpHandler {
 
             if (manager.IfSubtaskExists(newSubtask.taskId)) {
             manager.updateSubtask(newSubtask);
-            writeResponse(httpExchange, "Подзадача изменена", 201);
+            writeResponse(httpExchange, "Subtask changed", 201);
             } else {
-                writeResponse(httpExchange, "Такой подзадачи нет", 406);
+                writeResponse(httpExchange, "No such subtask", 406);
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
-            manager.deleteSubtaskById(Integer.parseInt(pathArray[2]));
-                writeResponse(httpExchange, "Задача удалена", 200);
+            try{
+                int id = Integer.parseInt(pathArray[2]);
+                if (manager.IfSubtaskExists(id)) {
+                    manager.deleteSubtaskById(id);
+                    writeResponse(httpExchange, "Subtask deleted", 200);
+                } else {
+                    writeResponse(httpExchange, "No such subtask", 406);
+                }
 
+            } catch (NullPointerException | NumberFormatException e) {
+                writeResponse(httpExchange, "Not Found", 404);
+            }
         } else {
-            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
+            writeResponse(httpExchange, "Unknown method or incorrect url", 404);
         }
 
     }

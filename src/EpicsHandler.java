@@ -1,7 +1,6 @@
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 class EpicsHandler extends BaseHttpHandler {
 
@@ -38,11 +37,21 @@ class EpicsHandler extends BaseHttpHandler {
             writeResponse(httpExchange, "Эпик размещен", 201);
 
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("epics")) {
-            manager.deleteEpicById(Integer.parseInt(pathArray[2]));
-            writeResponse(httpExchange, "Эпик удален", 200);
+            try{
+                int id = Integer.parseInt(pathArray[2]);
+                if (manager.IfEpicExists(id)) {
+                    manager.deleteEpicById(id);
+                    writeResponse(httpExchange, "Epic created", 200);
+                } else {
+                    writeResponse(httpExchange, "No such epic", 406);
+                }
+
+            } catch (NullPointerException | NumberFormatException e) {
+                writeResponse(httpExchange, "Not Found", 404);
+            }
 
         } else {
-            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
+            writeResponse(httpExchange, "Unknown method or incorrect url", 404);
         }
     }
 }

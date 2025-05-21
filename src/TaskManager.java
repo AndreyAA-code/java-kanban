@@ -48,4 +48,6 @@ public interface TaskManager {
 
     boolean IfSubtaskExists(Integer taskId); //проверка наличия сабтаска для его update
 
+    boolean IfEpicExists(Integer taskId); //проверка наличия сабтаска для его update
+
 }
