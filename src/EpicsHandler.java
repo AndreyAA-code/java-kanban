@@ -1,11 +1,9 @@
 import com.sun.net.httpserver.HttpExchange;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 class EpicsHandler extends BaseHttpHandler {
-
 
     public EpicsHandler(TaskManager manager) {
         super(manager);
@@ -17,54 +15,34 @@ class EpicsHandler extends BaseHttpHandler {
         splitData(httpExchange);
 
         if (method.equals("GET") && pathArray.length == 2) {
-            httpExchange.sendResponseHeaders(200, 0);
             String json = gson.toJson(manager.getEpics());
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write(json.getBytes());
-            }
+            writeResponse(httpExchange, json, 200);
 
         } else if (method.equals("GET") && pathArray.length == 3) {
+
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getEpicById(id));
-                httpExchange.sendResponseHeaders(202, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write(json.getBytes());
-                }
+                writeResponse(httpExchange, json, 202);
+
             } catch (NullPointerException | NumberFormatException e) {
-                httpExchange.sendResponseHeaders(404, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write("Not Found".getBytes());
-                }
+                writeResponse(httpExchange, "Not Found", 404);
             }
 
         } else if (method.equals("POST") && pathArray.length == 2) {
-            System.out.println(manager);
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
-         //   Epic newEpic = gson.fromJson(body, new EpicTypeToken().getType());
-            Epic deser = gson.fromJson(body,Epic.class);
-            Epic newEpic = new Epic(deser.taskName, deser.taskDescription, TaskStatus.NEW);
+            Epic deserialisation = gson.fromJson(body,Epic.class);
+            Epic newEpic = new Epic(deserialisation.taskName, deserialisation.taskDescription, TaskStatus.NEW);
             manager.addEpic(newEpic);
-
-            httpExchange.sendResponseHeaders(201, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Эпик размещен".getBytes());
-            }
+            writeResponse(httpExchange, "Эпик размещен", 201);
 
         } else if (method.equals("DELETE") && pathArray.length == 3) {
-            httpExchange.sendResponseHeaders(201, 0);
             manager.deleteEpicById(Integer.parseInt(pathArray[2]));
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Эпик удален".getBytes());
-            }
+            writeResponse(httpExchange, "Эпик удален", 200);
 
         } else {
-            System.out.println("Unknown method and path");
-            httpExchange.sendResponseHeaders(404, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Неизвестный метод или ошибка в url".getBytes());
-            }
+            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
         }
     }
 }

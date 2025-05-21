@@ -1,8 +1,6 @@
 import com.sun.net.httpserver.HttpExchange;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 class SubtasksHandler extends BaseHttpHandler {
     public SubtasksHandler(TaskManager manager) {
@@ -12,30 +10,21 @@ class SubtasksHandler extends BaseHttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-
         System.out.println("Received Subtask request");
         splitData(httpExchange);
 
         if (method.equals("GET") && pathArray.length == 2) {
-            httpExchange.sendResponseHeaders(200, 0);
             String json = gson.toJson(manager.getSubtasks());
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write(json.getBytes());
-            }
+            writeResponse(httpExchange, json, 200);
 
         } else if (method.equals("GET") && pathArray.length == 3) {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getSubtaskByID(id));
-                httpExchange.sendResponseHeaders(202, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write(json.getBytes());
-                }
+                writeResponse(httpExchange, json, 202);
+
             } catch (NullPointerException | NumberFormatException e) {
-                httpExchange.sendResponseHeaders(404, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write("Not Found".getBytes());
-                }
+                writeResponse(httpExchange, "Not Found", 404);
             }
 
         } else if (method.equals("POST") && pathArray.length == 2) {
@@ -43,10 +32,7 @@ class SubtasksHandler extends BaseHttpHandler {
             String body = new String(inputStream.readAllBytes());
             Subtask newSubtask = gson.fromJson(body, new SubtaskTypeToken().getType());
             manager.addSubtask(newSubtask);
-            httpExchange.sendResponseHeaders(201, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Подзадача размещена".getBytes());
-            }
+            writeResponse(httpExchange, "Подзадача размещена", 200);
 
         } else if (method.equals("POST") && pathArray.length == 3) {
             InputStream inputStream = httpExchange.getRequestBody();
@@ -55,28 +41,18 @@ class SubtasksHandler extends BaseHttpHandler {
 
             if (manager.IfSubtaskExists(newSubtask.taskId)) {
             manager.updateSubtask(newSubtask);
-            httpExchange.sendResponseHeaders(201, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Подзадача изменена".getBytes());
-            }
+            writeResponse(httpExchange, "Подзадача изменена", 201);
             } else {
-                httpExchange.sendResponseHeaders(406, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write("Такой подзадачи нет".getBytes());
-                }
+                writeResponse(httpExchange, "Такой подзадачи нет", 406);
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3) {
-            httpExchange.sendResponseHeaders(201, 0);
             manager.deleteSubtaskById(Integer.parseInt(pathArray[2]));
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Подзадача удалена".getBytes());
-            }
+                writeResponse(httpExchange, "Задача удалена", 200);
 
         } else {
-            System.out.println("Unknown method and path");
+            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
         }
 
     }
-
 }

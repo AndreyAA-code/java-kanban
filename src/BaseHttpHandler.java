@@ -7,12 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InvalidObjectException;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +19,7 @@ public class BaseHttpHandler implements HttpHandler {
     TaskManager manager;
 
     public BaseHttpHandler(TaskManager manager) {
-    this.manager = manager;
+        this.manager = manager;
     }
 
     Gson gson = new GsonBuilder()
@@ -37,14 +32,20 @@ public class BaseHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
     }
+
     public void splitData(HttpExchange httpExchange) throws IOException { //сплит запроса
         method = httpExchange.getRequestMethod();
         path = httpExchange.getRequestURI().getPath();
         pathArray = httpExchange.getRequestURI().getPath().split("/");
     }
 
+    public void writeResponse(HttpExchange httpExchange, String response, int responseCode) throws IOException {
+        httpExchange.sendResponseHeaders(responseCode, 0);
+        try (OutputStream os = httpExchange.getResponseBody()) {
+            os.write(response.getBytes());
+        }
+    }
 }
-
 
 class DurationAdapter extends TypeAdapter<Duration> { //адаптер json для поля duration
 

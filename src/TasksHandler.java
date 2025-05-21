@@ -1,8 +1,6 @@
 import com.sun.net.httpserver.HttpExchange;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
 class TasksHandler extends BaseHttpHandler {
 
@@ -17,25 +15,17 @@ class TasksHandler extends BaseHttpHandler {
         splitData(httpExchange);
 
         if (method.equals("GET") && pathArray.length == 2) {
-            httpExchange.sendResponseHeaders(200, 0);
             String json = gson.toJson(manager.getTasks());
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write(json.getBytes());
-            }
+            writeResponse(httpExchange, json, 200);
 
         } else if (method.equals("GET") && pathArray.length == 3) {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getTaskById(id));
-                httpExchange.sendResponseHeaders(202, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write(json.getBytes());
-                }
+                writeResponse(httpExchange, json, 202);
+
             } catch (NullPointerException | NumberFormatException e) {
-                httpExchange.sendResponseHeaders(404, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write("Not Found".getBytes());
-                }
+                writeResponse(httpExchange, "Not Found", 404);
             }
 
         } else if (method.equals("POST") && pathArray.length == 2) {
@@ -43,44 +33,25 @@ class TasksHandler extends BaseHttpHandler {
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
             manager.addTask(newTask);
-            httpExchange.sendResponseHeaders(201, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Задача размещена".getBytes());
-            }
+            writeResponse(httpExchange, "Задача размещена", 201);
 
         } else if (method.equals("POST") && pathArray.length == 3) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
-
             if (manager.IfTaskExists(newTask.taskId)) {
-               manager.updateTask(newTask);
-               httpExchange.sendResponseHeaders(201, 0);
-               try (OutputStream os = httpExchange.getResponseBody()) {
-                   os.write("Задача изменена".getBytes());
-               }
-           } else {
-                httpExchange.sendResponseHeaders(406, 0);
-                try (OutputStream os = httpExchange.getResponseBody()) {
-                    os.write("Такой задачи нет".getBytes());
-                }
+                manager.updateTask(newTask);
+                writeResponse(httpExchange, "Задача изменена", 201);
+            } else {
+                writeResponse(httpExchange, "Такой задачи нет", 406);
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3) {
-            httpExchange.sendResponseHeaders(201, 0);
             manager.deleteTaskById(Integer.parseInt(pathArray[2]));
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Задача удалена".getBytes());
-            }
+            writeResponse(httpExchange, "Задача удалена", 200);
 
         } else {
-            System.out.println("Unknown method and path");
-            httpExchange.sendResponseHeaders(404, 0);
-            try (OutputStream os = httpExchange.getResponseBody()) {
-                os.write("Неизвестный метод или ошибка в url".getBytes());
-            }
+            writeResponse(httpExchange, "Неизвестный метод или ошибка в url", 404);
         }
-
     }
-
 }
