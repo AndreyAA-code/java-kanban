@@ -43,7 +43,7 @@ class SubtasksHandler extends BaseHttpHandler {
             manager.updateSubtask(newSubtask);
             writeResponse(httpExchange, "Subtask changed", 201);
             } else {
-                writeResponse(httpExchange, "No such subtask", 406);
+                writeResponse(httpExchange, "Not Acceptable", 406);
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
@@ -53,7 +53,7 @@ class SubtasksHandler extends BaseHttpHandler {
                     manager.deleteSubtaskById(id);
                     writeResponse(httpExchange, "Subtask deleted", 200);
                 } else {
-                    writeResponse(httpExchange, "No such subtask", 406);
+                    writeResponse(httpExchange, "Not Acceptable", 406);
                 }
 
             } catch (NullPointerException | NumberFormatException e) {

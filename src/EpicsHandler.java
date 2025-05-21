@@ -43,7 +43,7 @@ class EpicsHandler extends BaseHttpHandler {
                     manager.deleteEpicById(id);
                     writeResponse(httpExchange, "Epic created", 200);
                 } else {
-                    writeResponse(httpExchange, "No such epic", 406);
+                    writeResponse(httpExchange, "Not Acceptable", 406);
                 }
 
             } catch (NullPointerException | NumberFormatException e) {

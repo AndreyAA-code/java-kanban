@@ -43,7 +43,7 @@ class TasksHandler extends BaseHttpHandler {
                 manager.updateTask(newTask);
                 writeResponse(httpExchange, "Task changed", 201);
             } else {
-                writeResponse(httpExchange, "No such task", 406);
+                writeResponse(httpExchange, "Not Acceptable", 406);
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("tasksgg")) {
@@ -53,7 +53,7 @@ class TasksHandler extends BaseHttpHandler {
                    manager.deleteTaskById(id);
                    writeResponse(httpExchange, "Task deleted", 200);
                } else {
-                   writeResponse(httpExchange, "No such task", 406);
+                   writeResponse(httpExchange, "Not Acceptable", 406);
                }
 
            } catch (NullPointerException | NumberFormatException e) {

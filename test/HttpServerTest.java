@@ -4,7 +4,6 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executor;
 
 public class HttpServerTest {
     public static void main(String[] args) throws IOException {
