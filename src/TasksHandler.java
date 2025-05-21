@@ -14,11 +14,11 @@ class TasksHandler extends BaseHttpHandler {
         System.out.println("Received Task request");
         splitData(httpExchange);
 
-        if (method.equals("GET") && pathArray.length == 2 && pathArray[1].equals("tasksgg")) {
+        if (method.equals("GET") && pathArray.length == 2 && pathArray[1].equals("tasks")) {
             String json = gson.toJson(manager.getTasks());
             writeResponse(httpExchange, json, 200);
 
-        } else if (method.equals("GET") && pathArray.length == 3 && pathArray[1].equals("tasksgg")) {
+        } else if (method.equals("GET") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
             try {
                 Integer id = Integer.parseInt(pathArray[2]);
                 String json = gson.toJson(manager.getTaskById(id));
@@ -35,7 +35,7 @@ class TasksHandler extends BaseHttpHandler {
             manager.addTask(newTask);
             writeResponse(httpExchange, "Task created", 201);
 
-        } else if (method.equals("POST") && pathArray.length == 3 && pathArray[1].equals("tasksgg")) {
+        } else if (method.equals("POST") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
