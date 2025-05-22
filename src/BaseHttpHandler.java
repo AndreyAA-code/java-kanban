@@ -47,27 +47,7 @@ public class BaseHttpHandler implements HttpHandler {
     }
 }
 
+//class EpicTypeToken extends TypeToken<Epic> { //Токен для перевода из json в Epic
+//}
 
 
-class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> { //адаптер json для полей startTime и endTime
-    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-
-    @Override
-    public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {
-        jsonWriter.value(localDateTime.format(dtf));
-    }
-
-    @Override
-    public LocalDateTime read(final JsonReader jsonReader) throws IOException {
-        return LocalDateTime.parse(jsonReader.nextString(), dtf);
-    }
-}
-
-class TaskTypeToken extends TypeToken<Task> { //Токен для перевода из json в Task
-}
-
-class EpicTypeToken extends TypeToken<Epic> { //Токен для перевода из json в Epic
-}
-
-class SubtaskTypeToken extends TypeToken<Subtask> { //Токен для перевода из json в Epic
-}
