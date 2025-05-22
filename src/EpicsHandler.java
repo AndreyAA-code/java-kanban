@@ -39,7 +39,7 @@ class EpicsHandler extends BaseHttpHandler {
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("epics")) {
             try {
                 int id = Integer.parseInt(pathArray[2]);
-                if (manager.IfEpicExists(id)) {
+                if (manager.ifEpicExists(id)) {
                     manager.deleteEpicById(id);
                     writeResponse(httpExchange, "Epic created", 200);
                 } else {

@@ -39,7 +39,7 @@ class TasksHandler extends BaseHttpHandler {
             InputStream inputStream = httpExchange.getRequestBody();
             String body = new String(inputStream.readAllBytes());
             Task newTask = gson.fromJson(body, new TaskTypeToken().getType());
-            if (manager.IfTaskExists(newTask.taskId)) {
+            if (manager.ifTaskExists(newTask.taskId)) {
                 manager.updateTask(newTask);
                 writeResponse(httpExchange, "Task changed", 201);
             } else {
@@ -49,7 +49,7 @@ class TasksHandler extends BaseHttpHandler {
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
            try{
                int id = Integer.parseInt(pathArray[2]);
-               if (manager.IfTaskExists(id)) {
+               if (manager.ifTaskExists(id)) {
                    manager.deleteTaskById(id);
                    writeResponse(httpExchange, "Task deleted", 200);
                } else {

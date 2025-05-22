@@ -39,7 +39,7 @@ class SubtasksHandler extends BaseHttpHandler {
             String body = new String(inputStream.readAllBytes());
             Subtask newSubtask = gson.fromJson(body, new SubtaskTypeToken().getType());
 
-            if (manager.IfSubtaskExists(newSubtask.taskId)) {
+            if (manager.ifSubtaskExists(newSubtask.taskId)) {
             manager.updateSubtask(newSubtask);
             writeResponse(httpExchange, "Subtask changed", 201);
             } else {
@@ -49,7 +49,7 @@ class SubtasksHandler extends BaseHttpHandler {
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
             try{
                 int id = Integer.parseInt(pathArray[2]);
-                if (manager.IfSubtaskExists(id)) {
+                if (manager.ifSubtaskExists(id)) {
                     manager.deleteSubtaskById(id);
                     writeResponse(httpExchange, "Subtask deleted", 200);
                 } else {

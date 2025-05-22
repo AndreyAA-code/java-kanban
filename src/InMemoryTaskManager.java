@@ -278,7 +278,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public boolean IfTaskExists(Integer taskId) {
+    public boolean ifTaskExists(Integer taskId) {
         if (tasks.containsKey(taskId)) {
             return true;
         }
@@ -286,7 +286,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public boolean IfSubtaskExists(Integer taskId) {
+    public boolean ifSubtaskExists(Integer taskId) {
         if (subtasks.containsKey(taskId)) {
             return true;
         }
@@ -294,7 +294,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public boolean IfEpicExists(Integer taskId) {
+    public boolean ifEpicExists(Integer taskId) {
         if (epics.containsKey(taskId)) {
             return true;
         }
