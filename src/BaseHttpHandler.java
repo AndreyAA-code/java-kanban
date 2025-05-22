@@ -47,18 +47,7 @@ public class BaseHttpHandler implements HttpHandler {
     }
 }
 
-class DurationAdapter extends TypeAdapter<Duration> { //адаптер json для поля duration
 
-    @Override
-    public void write(final JsonWriter jsonWriter, final Duration duration) throws IOException {
-        jsonWriter.value(duration.toMinutes());
-    }
-
-    @Override
-    public Duration read(final JsonReader jsonReader) throws IOException {
-        return Duration.ofMinutes(Integer.parseInt(jsonReader.nextString()));
-    }
-}
 
 class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> { //адаптер json для полей startTime и endTime
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
