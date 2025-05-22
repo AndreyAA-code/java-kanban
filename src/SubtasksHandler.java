@@ -13,7 +13,7 @@ class SubtasksHandler extends BaseHttpHandler {
         System.out.println("Received Subtask request");
         splitData(httpExchange);
 
-        if (method.equals("GET") && pathArray.length == 2 &&pathArray[1].equals("subtasks")) {
+        if (method.equals("GET") && pathArray.length == 2 && pathArray[1].equals("subtasks")) {
             String json = gson.toJson(manager.getSubtasks());
             writeResponse(httpExchange, json, 200);
 
@@ -47,7 +47,7 @@ class SubtasksHandler extends BaseHttpHandler {
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("subtasks")) {
-            try{
+            try {
                 int id = Integer.parseInt(pathArray[2]);
                 if (manager.ifSubtaskExists(id)) {
                     manager.deleteSubtaskById(id);
