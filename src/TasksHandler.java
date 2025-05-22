@@ -47,7 +47,7 @@ class TasksHandler extends BaseHttpHandler {
             }
 
         } else if (method.equals("DELETE") && pathArray.length == 3 && pathArray[1].equals("tasks")) {
-           try{
+           try {
                int id = Integer.parseInt(pathArray[2]);
                if (manager.ifTaskExists(id)) {
                    manager.deleteTaskById(id);
