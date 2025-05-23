@@ -1,10 +1,13 @@
+import exceptions.TaskIntersectionException;
+import managers.InMemoryTaskManager;
+import managers.Managers;
+import managers.TaskManager;
 import org.junit.jupiter.api.Test;
+import tasks.Task;
+import tasks.TaskStatus;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

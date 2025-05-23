@@ -1,4 +1,10 @@
+import managers.Managers;
+import managers.TaskManager;
 import org.junit.jupiter.api.Test;
+import tasks.Epic;
+import tasks.Subtask;
+import tasks.Task;
+import tasks.TaskStatus;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -85,7 +91,7 @@ abstract class TaskManagerTest <T extends TaskManager>  {
         List<Epic> testEpic = manager.getEpics();
         Epic testEpic1 = testEpic.get(0);
 
-        assertEquals(TaskStatus.DONE, testEpic1.taskStatus, "Статус не совпадает.");
+        assertEquals(TaskStatus.DONE, testEpic1.getTaskStatus(), "Статус не совпадает.");
     }
 
     @Test
@@ -111,7 +117,7 @@ abstract class TaskManagerTest <T extends TaskManager>  {
         List<Epic> testEpic = manager.getEpics();
         Epic testEpic1 = testEpic.get(0);
 
-        assertEquals(TaskStatus.IN_PROGRESS, testEpic1.taskStatus, "Статус не совпадает.");
+        assertEquals(TaskStatus.IN_PROGRESS, testEpic1.getTaskStatus(), "Статус не совпадает.");
     }
 
 

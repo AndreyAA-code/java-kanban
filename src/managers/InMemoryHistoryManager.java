@@ -1,3 +1,7 @@
+package managers;
+
+import tasks.*;
+
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
@@ -34,8 +38,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     public void linkLast(Task task) {
-        if (historyNodesListLink.containsKey(task.taskId)) {
-            removeNode(historyNodesListLink.get(task.taskId));
+        if (historyNodesListLink.containsKey(task.getTaskId())) {
+            removeNode(historyNodesListLink.get(task.getTaskId()));
         }
         final Node<Task> oldTail = tail;
         final Node<Task> newNode = new Node<Task>(oldTail, task, null);
@@ -45,7 +49,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         } else {
             oldTail.setNext(newNode);
         }
-        historyNodesListLink.put(task.taskId, newNode);
+        historyNodesListLink.put(task.getTaskId(), newNode);
     }
 
     public static void setHistoryNodesListLink(Map<Integer, Node<Task>> historyNodesListLink) {

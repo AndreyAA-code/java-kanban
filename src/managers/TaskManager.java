@@ -1,3 +1,9 @@
+package managers;
+
+import tasks.Epic;
+import tasks.Subtask;
+import tasks.Task;
+
 import java.util.List;
 
 public interface TaskManager {
@@ -24,7 +30,7 @@ public interface TaskManager {
 
     Epic getEpicById(Integer taskId); //получение эпика по идентификатору
 
-    void deleteTaskById(Integer taskId); //удаление задачи по идентификатору
+    Task deleteTaskById(Integer taskId); //удаление задачи по идентификатору
 
     void deleteEpicById(Integer taskId); //удаление эпика по идентификатору
 
@@ -43,5 +49,11 @@ public interface TaskManager {
     List<Task> getHistory();// получение истории просмотра объектов
 
     List<Task> getPrioritizedTasks();//получение задач отсортированных по времени старта
+
+    boolean isTaskExists(Integer taskId); //проверка наличия таска для его update
+
+    boolean isSubtaskExists(Integer taskId); //проверка наличия сабтаска для его update
+
+    boolean isEpicExists(Integer taskId); //проверка наличия сабтаска для его update
 
 }

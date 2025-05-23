@@ -1,8 +1,12 @@
+package managers;
+
+import exceptions.*;
+import tasks.*;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.*;
 import java.nio.file.Path;
 
 
@@ -60,9 +64,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
+    public Task deleteTaskById(Integer taskId) { //удаление задачи по идентификатору
         super.deleteTaskById(taskId);
         save();
+        return tasks.get(taskId);
     }
 
     @Override
@@ -101,7 +106,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     }
 
-    static FileBackedTaskManager loadFromFile(Path file) {
+    public static FileBackedTaskManager loadFromFile(Path file) {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager();
 
         try (Reader fileReader = new FileReader(file.toString())) {
