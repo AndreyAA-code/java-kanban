@@ -25,7 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HttpServerTest {
-    final TaskManager manager = new InMemoryTaskManager();
+    TaskManager manager;
 
     Task task1 = new Task("taskname 1", "taskdescr1", TaskStatus.NEW, Duration.ofMinutes(15),
             LocalDateTime.of(2025, 06, 1, 14, 25));
@@ -50,6 +50,7 @@ public class HttpServerTest {
 
     @BeforeEach
     public void setUpServer() throws IOException, InterruptedException {
+        manager = new InMemoryTaskManager();
         int port = 8080;
         httpServer = HttpServer.create(new InetSocketAddress(port), 0);
 
@@ -66,10 +67,6 @@ public class HttpServerTest {
 
     @AfterEach
     public void tearDownServer() {
-        manager.deleteAllTasks();
-        manager.getEpics();
-        manager.getSubtasks();
-        manager.getTasks();
 
         httpServer.stop(1);
         System.out.println("Local Server stopped");

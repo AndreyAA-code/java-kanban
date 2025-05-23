@@ -27,10 +27,6 @@ public abstract class BaseHttpHandler implements HttpHandler {
         this.manager = manager;
     }
 
-    //@Override
-  //  public void handle(HttpExchange exchange) throws IOException {
-   // }
-
     public void splitData(HttpExchange httpExchange) throws IOException { //сплит запроса
         method = httpExchange.getRequestMethod();
         path = httpExchange.getRequestURI().getPath();
