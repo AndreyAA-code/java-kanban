@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class BaseHttpHandler implements HttpHandler {
+public abstract class BaseHttpHandler implements HttpHandler {
     protected String method;
     protected String path;
     protected String[] pathArray;
@@ -27,9 +27,9 @@ public class BaseHttpHandler implements HttpHandler {
         this.manager = manager;
     }
 
-    @Override
-    public void handle(HttpExchange exchange) throws IOException {
-    }
+    //@Override
+  //  public void handle(HttpExchange exchange) throws IOException {
+   // }
 
     public void splitData(HttpExchange httpExchange) throws IOException { //сплит запроса
         method = httpExchange.getRequestMethod();
