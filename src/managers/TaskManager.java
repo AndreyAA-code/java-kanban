@@ -50,10 +50,10 @@ public interface TaskManager {
 
     List<Task> getPrioritizedTasks();//получение задач отсортированных по времени старта
 
-    boolean ifTaskExists(Integer taskId); //проверка наличия таска для его update
+    boolean isTaskExists(Integer taskId); //проверка наличия таска для его update
 
-    boolean ifSubtaskExists(Integer taskId); //проверка наличия сабтаска для его update
+    boolean isSubtaskExists(Integer taskId); //проверка наличия сабтаска для его update
 
-    boolean ifEpicExists(Integer taskId); //проверка наличия сабтаска для его update
+    boolean isEpicExists(Integer taskId); //проверка наличия сабтаска для его update
 
 }
