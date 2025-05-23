@@ -16,19 +16,15 @@ public class BaseHttpHandler implements HttpHandler {
     protected String path;
     protected String[] pathArray;
     protected TaskManager manager;
-    protected Gson gson;
+    protected Gson gson = new GsonBuilder()
+            .serializeNulls()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Duration.class, new DurationAdapter())
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .create();
 
     public BaseHttpHandler(TaskManager manager) {
         this.manager = manager;
-    }
-
-    {
-        gson = new GsonBuilder()
-                .serializeNulls()
-                .setPrettyPrinting()
-                .registerTypeAdapter(Duration.class, new DurationAdapter())
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-                .create();
     }
 
     @Override
